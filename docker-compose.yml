@@ -17,10 +17,6 @@ services:
     build:
       context: ./
       dockerfile: ./docker/fpm/Dockerfile
-    environment:
-      ENV: dev
-    ports:
-      - "3031:3031"
     volumes:
       - ${BASE_DIR}/:/var/www
     networks:
