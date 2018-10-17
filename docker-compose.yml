@@ -18,7 +18,7 @@ services:
       context: ./
       dockerfile: ./docker/fpm/Dockerfile
     volumes:
-      - ${BASE_DIR}/:/var/www
+      - ${BASE_DIR}/api/:/var/www
     networks:
       - frontend
       - backend
