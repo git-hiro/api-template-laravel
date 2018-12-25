@@ -1,33 +1,32 @@
 version: '3.6'
 
 services:
-
   nginx:
-    container_name: api_laraval_nginx
+    container_name: api_laravel_nginx
     image: nginx:1.15-alpine
     ports:
-      - "8080:80"
+      - '8080:80'
     volumes:
-      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./tools/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     networks:
       - frontend
 
   fpm:
-    container_name: api_laraval_fpm
+    container_name: api_laravel_fpm
     build:
       context: ./
-      dockerfile: ./docker/fpm/Dockerfile
+      dockerfile: ./tools/docker/fpm/Dockerfile
     volumes:
-      - ${BASE_DIR}/api/:/var/www
+      - ${BASE_DIR}/laravel/:/var/www
     networks:
       - frontend
       - backend
 
   database:
-    container_name: api_laraval_db
+    container_name: api_laravel_db
     image: postgres:10-alpine
     ports:
-      - "5432:5432"
+      - '5432:5432'
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
