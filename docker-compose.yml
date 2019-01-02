@@ -24,7 +24,7 @@ services:
 
   database:
     container_name: api_laravel_db
-    image: postgres:10-alpine
+    image: postgres:11-alpine
     ports:
       - '5432:5432'
     environment:
