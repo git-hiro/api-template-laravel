@@ -6,7 +6,11 @@ RUN apk add --update --no-cache \
   php-openssl \
   php-json \
   php-phar \
-  php-dom
+  php-dom \
+  postgresql-dev
+
+RUN docker-php-ext-install \
+  pdo_pgsql
 
 RUN curl -sS https://getcomposer.org/installer | php \
   && mv composer.phar /usr/local/bin/composer

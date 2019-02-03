@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
 
@@ -12,13 +12,13 @@ use App\Http\Controllers\Controller;
  */
 
 /**
- * @Resource("api/helloworld", only={"index"})
+ * @Resource("api/v1/helloworld", only={"index"})
  */
 class HelloworldController extends Controller
 {
   /**
    * @OA\Get(
-   *   path="/api/helloworld",
+   *   path="/api/v1/helloworld",
    *   tags={"helloworld"},
    *   @OA\Response(response="200", description="Helloworld")
    * )
