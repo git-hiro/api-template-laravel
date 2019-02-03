@@ -4,24 +4,20 @@ namespace App\Http\Controllers\V1;
 
 use App\Domains\Translators\UserTranslator;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
 use App\UseCases\Users\CreateUserCase;
 use App\UseCases\Users\DeleteUserCase;
 use App\UseCases\Users\GetUserCase;
 use App\UseCases\Users\GetUserListCase;
 use App\UseCases\Users\UpdateUserCase;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Webpatser\Uuid\Uuid;
+use Illuminate\Support\Str;
 
 /**
  * @OA\Tag(
  *   name="users",
  *   description="",
  * )
- */
-
-/**
- * @Resource("api/v1/users", only={"index", "show", "store", "update", "destroy"})
  */
 class UsersController extends Controller
 {
@@ -103,19 +99,14 @@ class UsersController extends Controller
    *   )
    * )
    */
-  public function store(CreateUserCase $case, Request $request)
+  public function store(CreateUserCase $case, UserRequest $request)
   {
-    $data = $request->validate([
-      'user'          => 'required',
-      'user.name'     => 'required',
-      'user.email'    => 'required|email',
-      'user.password' => 'required',
-    ]);
+    $data = $request->validated();
 
-    $id = Uuid::generate(4)->string;
+    $executorId = Str::uuid();
 
     $userReq = UserTranslator::ofArray($data['user']);
-    $user = $case($userReq, $id);
+    $user = $case($userReq, $executorId);
 
     return new JsonResponse(['user' => $user], JsonResponse::HTTP_CREATED);
   }
@@ -153,7 +144,7 @@ class UsersController extends Controller
    *   )
    * )
    */
-  public function update(UpdateUserCase $case, string $id, Request $request)
+  public function update(UpdateUserCase $case, string $id, UserRequest $request)
   {
     $data = $request->validate([
       'user'       => 'required',
@@ -161,7 +152,7 @@ class UsersController extends Controller
       'user.email' => 'required|email',
     ]);
 
-    $executorId = Uuid::generate(4)->string;
+    $executorId = Str::uuid();
 
     $userReq = UserTranslator::ofArray($data['user']);
     $user = $case($id, $userReq, $executorId);
@@ -188,7 +179,7 @@ class UsersController extends Controller
    */
   public function destroy(DeleteUserCase $case, string $id)
   {
-    $executorId = Uuid::generate(4)->string;
+    $executorId = Str::uuid();
 
     $case($id, $executorId);
 
