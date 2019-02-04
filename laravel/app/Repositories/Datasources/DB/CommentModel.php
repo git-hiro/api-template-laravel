@@ -6,16 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
-class ChildModel extends Model
+class CommentModel extends Model
 {
   use SoftDeletes;
 
   public $incrementing = false;
 
-  protected $table = 'children';
+  protected $table = 'comments';
 
   protected $fillable = [
     'user_id',
+    'article_id',
   ];
 
   protected $dates = ['created_at', 'updated_at', 'deleted_at'];
@@ -33,8 +34,8 @@ class ChildModel extends Model
     return $this->belongsTo(UserModel::class);
   }
 
-  public function grandchildren()
+  public function article()
   {
-    return $this->hasMany(GrandChildModel::class, 'user_id');
+    return $this->belongsTo(ArticleModel::class);
   }
 }

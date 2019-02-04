@@ -30,8 +30,13 @@ class UserModel extends Authenticatable
     }
   }
 
-  public function children()
+  public function articles()
   {
-    return $this->hasMany(ChildModel::class, 'user_id');
+    return $this->hasMany(ArticleModel::class, 'user_id');
+  }
+
+  public function comments()
+  {
+    return $this->hasMany(CommentModel::class, 'user_id');
   }
 }
