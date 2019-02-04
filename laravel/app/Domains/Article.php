@@ -4,11 +4,10 @@ namespace App\Domains;
 
 /**
  * @OA\Schema(
- *   title="User",
- *   required={"name", "email"},
+ *   title="Article",
  * )
  */
-class User extends Entity
+class Article extends Entity
 {
   /**
    * @OA\Property()
@@ -22,17 +21,8 @@ class User extends Entity
    *
    * @var string
    */
-  public $name;
+  public $userId;
 
-  /**
-   * @OA\Property()
-   *
-   * @var string
-   */
-  public $email;
-
-  public $password;
-
-  public $articles;
+  public $user;
   public $comments;
 }
