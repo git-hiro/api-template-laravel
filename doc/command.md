@@ -26,3 +26,16 @@ php artisan db:seed
 ```sh
 ./vendor/bin/phpunit
 ```
+
+### Cache
+
+```sh
+php artisan cache:clear
+php artisan config:clear
+php artisan route:clear
+
+composer dump-autoload
+php artisan clear-compiled
+php artisan optimize
+php artisan config:cache
+```
