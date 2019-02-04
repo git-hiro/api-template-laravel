@@ -46,10 +46,10 @@ class UsersController extends Controller
 
   /**
    * @OA\Get(
-   *   path="/api/v1/users/{id}",
+   *   path="/api/v1/users/{userId}",
    *   tags={"users"},
    *   @OA\Parameter(
-   *     name="id",
+   *     name="userId",
    *     in="path",
    *     description="",
    *     required=true,
@@ -113,10 +113,10 @@ class UsersController extends Controller
 
   /**
    * @OA\Put(
-   *   path="/api/v1/users/{id}",
+   *   path="/api/v1/users/{userId}",
    *   tags={"users"},
    *   @OA\Parameter(
-   *     name="id",
+   *     name="userId",
    *     in="path",
    *     description="",
    *     required=true,
@@ -162,10 +162,10 @@ class UsersController extends Controller
 
   /**
    * @OA\Delete(
-   *   path="/api/v1/users/{id}",
+   *   path="/api/v1/users/{userId}",
    *   tags={"users"},
    *   @OA\Parameter(
-   *     name="id",
+   *     name="userId",
    *     in="path",
    *     description="",
    *     required=true,
@@ -184,5 +184,69 @@ class UsersController extends Controller
     $case($id, $executorId);
 
     return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
+  }
+
+  /**
+   * @OA\Get(
+   *   path="/api/v1/users/{userId}/articles",
+   *   tags={"users"},
+   *   @OA\Parameter(
+   *     name="userId",
+   *     in="path",
+   *     description="",
+   *     required=true,
+   *     @OA\Schema(
+   *       type="string",
+   *     )
+   *   ),
+   *   @OA\Response(response="200", description="",
+   *     @OA\JsonContent(
+   *       type="object",
+   *       @OA\Property(
+   *         property="comments",
+   *         type="array",
+   *         @OA\Items(ref="#/components/schemas/Article"),
+   *       )
+   *     )
+   *   )
+   * )
+   */
+  public function indexArticles(GetArticleListCase $case)
+  {
+    $comments = $case();
+
+    return new JsonResponse(['comments' => $comments], JsonResponse::HTTP_OK);
+  }
+
+  /**
+   * @OA\Get(
+   *   path="/api/v1/users/{userId}/comments",
+   *   tags={"users"},
+   *   @OA\Parameter(
+   *     name="userId",
+   *     in="path",
+   *     description="",
+   *     required=true,
+   *     @OA\Schema(
+   *       type="string",
+   *     )
+   *   ),
+   *   @OA\Response(response="200", description="",
+   *     @OA\JsonContent(
+   *       type="object",
+   *       @OA\Property(
+   *         property="comments",
+   *         type="array",
+   *         @OA\Items(ref="#/components/schemas/Comment"),
+   *       )
+   *     )
+   *   )
+   * )
+   */
+  public function indexComments(GetCommentListCase $case)
+  {
+    $comments = $case();
+
+    return new JsonResponse(['comments' => $comments], JsonResponse::HTTP_OK);
   }
 }

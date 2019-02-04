@@ -10,9 +10,6 @@ use Symfony\Component\Finder\Finder;
  */
 class OpenAPIController extends Controller
 {
-  /**
-   * @Get("openapi.json", as="openapi.index")
-   */
   public function index()
   {
     $openapi = \OpenApi\scan('../app');
