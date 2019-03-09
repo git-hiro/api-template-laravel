@@ -5,6 +5,7 @@ namespace App\UseCases\Users;
 use App\Domains\User;
 use App\Repositories\IUserRepository;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CreateUserCase
 {
