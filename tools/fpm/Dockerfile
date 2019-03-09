@@ -2,7 +2,6 @@ FROM php:7.3-fpm-alpine
 
 RUN apk add --update --no-cache \
   curl \
-  php-bcmath \
   php-curl \
   php-dom \
   php-json \
@@ -11,6 +10,7 @@ RUN apk add --update --no-cache \
   postgresql-dev
 
 RUN docker-php-ext-install \
+  bcmath \
   pdo_pgsql
 
 RUN curl -sS https://getcomposer.org/installer | php \
