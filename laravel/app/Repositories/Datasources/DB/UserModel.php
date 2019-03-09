@@ -26,7 +26,7 @@ class UserModel extends Authenticatable
   {
     parent::__construct($attributes);
     if (!$this->id) {
-      $this->attributes['id'] = Str::uuid()->toString();
+      $this->attributes['id'] = Str::orderedUuid()->toString();
     }
   }
 

@@ -25,7 +25,7 @@ class CommentModel extends Model
   {
     parent::__construct($attributes);
     if (!$this->id) {
-      $this->attributes['id'] = Str::uuid()->toString();
+      $this->attributes['id'] = Str::orderedUuid()->toString();
     }
   }
 
