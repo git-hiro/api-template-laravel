@@ -3,7 +3,7 @@
 ## Docker
 
 ```sh
-docker exec -it api_laravel_fpm sh
+docker exec -it fpm sh
 ```
 
 ## Laravel
