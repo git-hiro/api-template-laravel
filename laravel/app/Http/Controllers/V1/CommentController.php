@@ -5,10 +5,8 @@ namespace App\Http\Controllers\V1;
 use App\Domains\Translators\CommentTranslator;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommentRequest;
-use App\UseCases\Comments\CreateCommentCase;
 use App\UseCases\Comments\DeleteCommentCase;
 use App\UseCases\Comments\GetCommentCase;
-use App\UseCases\Comments\GetCommentListCase;
 use App\UseCases\Comments\UpdateCommentCase;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
@@ -19,7 +17,7 @@ use Illuminate\Support\Str;
  *   description="",
  * )
  */
-class CommentsController extends Controller
+class CommentController extends Controller
 {
   /**
    * @OA\Get(

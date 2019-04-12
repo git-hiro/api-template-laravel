@@ -19,7 +19,7 @@ use Illuminate\Support\Str;
  *   description="",
  * )
  */
-class ArticlesController extends Controller
+class ArticleController extends Controller
 {
   /**
    * @OA\Get(
