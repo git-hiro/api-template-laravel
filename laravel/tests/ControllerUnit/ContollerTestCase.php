@@ -11,7 +11,7 @@ use Tests\TestCase;
  */
 class ContollerTestCase extends TestCase
 {
-  protected function addRepositoryMock(string $class): MockInterface
+  protected function addMock(string $class): MockInterface
   {
     $mock = \Mockery::mock($class);
     $this->mock = $mock;
@@ -22,5 +22,18 @@ class ContollerTestCase extends TestCase
     });
 
     return $mock;
+  }
+
+  protected function addSpy(string $class): MockInterface
+  {
+    $spy = \Mockery::spy($class);
+    $this->spy = $spy;
+
+    $this->app->forgetInstance($class);
+    $this->app->singleton($class, function () use ($spy) {
+      return $spy;
+    });
+
+    return $spy;
   }
 }

@@ -4,6 +4,7 @@ namespace Tests\ControllerUnit\Users;
 
 use App\Domains\User;
 use App\Repositories\IUserRepository;
+use Illuminate\Database\DatabaseManager;
 use Illuminate\Support\Collection;
 use Tests\ControllerUnit\ContollerTestCase;
 
@@ -13,12 +14,15 @@ use Tests\ControllerUnit\ContollerTestCase;
  */
 class GetListTest extends ContollerTestCase
 {
+  protected $db_spy;
   protected $user_repository_mock;
 
   public function setup(): void
   {
     parent::setUp();
-    $this->user_repository_mock = $this->addRepositoryMock(IUserRepository::class);
+
+    $this->db_spy = $this->addSpy(DatabaseManager::class);
+    $this->user_repository_mock = $this->addMock(IUserRepository::class);
   }
 
   public function tearDown(): void
