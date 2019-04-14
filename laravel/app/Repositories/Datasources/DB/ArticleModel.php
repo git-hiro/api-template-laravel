@@ -4,7 +4,6 @@ namespace App\Repositories\Datasources\DB;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Str;
 
 class ChildModel extends Model
 {
@@ -19,14 +18,6 @@ class ChildModel extends Model
   ];
 
   protected $dates = ['created_at', 'updated_at', 'deleted_at'];
-
-  public function __construct(array $attributes = [])
-  {
-    parent::__construct($attributes);
-    if (!$this->id) {
-      $this->attributes['id'] = Str::orderedUuid()->toString();
-    }
-  }
 
   public function user()
   {
