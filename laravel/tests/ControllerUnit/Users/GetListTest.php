@@ -4,7 +4,6 @@ namespace Tests\ControllerUnit\Users;
 
 use App\Domains\User;
 use App\Repositories\IUserRepository;
-use Illuminate\Database\DatabaseManager;
 use Illuminate\Support\Collection;
 use Tests\ControllerUnit\ContollerTestCase;
 
@@ -14,14 +13,12 @@ use Tests\ControllerUnit\ContollerTestCase;
  */
 class GetListTest extends ContollerTestCase
 {
-  protected $db_spy;
   protected $user_repository_mock;
 
   public function setup(): void
   {
     parent::setUp();
 
-    $this->db_spy = $this->addSpy(DatabaseManager::class);
     $this->user_repository_mock = $this->addMock(IUserRepository::class);
   }
 
@@ -46,5 +43,8 @@ class GetListTest extends ContollerTestCase
 
     $response = $this->get('/api/v1/users');
     $response->assertStatus(200);
+
+    $this->db_pgsql_spy->shouldHaveReceived('commit')->times(1);
+    $this->db_pgsql_spy->shouldNotReceive('rollBack')->times(0);
   }
 }
