@@ -91,10 +91,10 @@ class CommentController extends Controller
       'comment.email' => 'required|email',
     ]);
 
-    $executorId = Str::uuid();
+    $executor_id = Str::uuid();
 
-    $commentReq = CommentTranslator::ofArray($data['comment']);
-    $comment = $case($id, $commentReq, $executorId);
+    $comment_req = CommentTranslator::ofArray($data['comment']);
+    $comment = $case($id, $comment_req, $executor_id);
 
     return new JsonResponse(['comment' => $comment], JsonResponse::HTTP_OK);
   }
@@ -118,9 +118,9 @@ class CommentController extends Controller
    */
   public function destroy(DeleteCommentCase $case, string $id)
   {
-    $executorId = Str::uuid();
+    $executor_id = Str::uuid();
 
-    $case($id, $executorId);
+    $case($id, $executor_id);
 
     return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
   }

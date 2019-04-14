@@ -21,7 +21,7 @@ class Article extends Entity
    *
    * @var string
    */
-  public $userId;
+  public $user_id;
 
   public $user;
   public $comments;

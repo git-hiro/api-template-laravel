@@ -3,34 +3,33 @@
 namespace App\UseCases\Users;
 
 use App\Domains\User;
+use App\Repositories\Datasources\MultipleConnection;
 use App\Repositories\IUserRepository;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class UpdateUserCase
 {
+  /**
+   * @var MultipleConnection
+   */
+  private $connection;
+
   /**
    * @var IUserRepository
    */
   private $userRepository;
 
-  public function __construct(IUserRepository $userRepository)
-  {
+  public function __construct(
+    MultipleConnection $connection,
+    IUserRepository $userRepository
+  ) {
+    $this->connection = $connection;
     $this->userRepository = $userRepository;
   }
 
-  public function __invoke(string $id, User $user, string $executorId): User
+  public function __invoke(string $id, User $user, string $executor_id): User
   {
-    DB::beginTransaction();
-
-    try {
-      $user = $this->userRepository->update($id, $user, $executorId);
-      DB::commit();
-    } catch (\PDOException $ex) {
-      Log::error($ex);
-      DB::rollBack();
-    }
-
-    return $user;
+    return $this->connection->transaction(['pgsql'], function () use ($id, $user, $executor_id) {
+      return $this->userRepository->update($id, $user, $executor_id);
+    });
   }
 }

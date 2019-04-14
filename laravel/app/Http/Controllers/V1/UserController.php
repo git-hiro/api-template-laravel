@@ -4,7 +4,8 @@ namespace App\Http\Controllers\V1;
 
 use App\Domains\Translators\UserTranslator;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 use App\UseCases\Users\CreateUserCase;
 use App\UseCases\Users\DeleteUserCase;
 use App\UseCases\Users\GetUserCase;
@@ -99,14 +100,14 @@ class UserController extends Controller
    *   )
    * )
    */
-  public function store(CreateUserCase $case, UserRequest $request)
+  public function store(CreateUserCase $case, StoreUserRequest $request)
   {
     $data = $request->validated();
 
-    $executorId = Str::uuid();
+    $executor_id = Str::uuid();
 
-    $userReq = UserTranslator::ofArray($data['user']);
-    $user = $case($userReq, $executorId);
+    $user_req = UserTranslator::ofArray($data['user']);
+    $user = $case($user_req, $executor_id);
 
     return new JsonResponse(['user' => $user], JsonResponse::HTTP_CREATED);
   }
@@ -144,18 +145,14 @@ class UserController extends Controller
    *   )
    * )
    */
-  public function update(UpdateUserCase $case, string $id, UserRequest $request)
+  public function update(UpdateUserCase $case, UpdateUserRequest $request)
   {
-    $data = $request->validate([
-      'user'       => 'required',
-      'user.name'  => 'required',
-      'user.email' => 'required|email',
-    ]);
+    $data = $request->validated();
 
-    $executorId = Str::uuid();
+    $executor_id = Str::uuid();
 
-    $userReq = UserTranslator::ofArray($data['user']);
-    $user = $case($id, $userReq, $executorId);
+    $user_req = UserTranslator::ofArray($data['user']);
+    $user = $case($data['id'], $user_req, $executor_id);
 
     return new JsonResponse(['user' => $user], JsonResponse::HTTP_OK);
   }
@@ -179,9 +176,9 @@ class UserController extends Controller
    */
   public function destroy(DeleteUserCase $case, string $id)
   {
-    $executorId = Str::uuid();
+    $executor_id = Str::uuid();
 
-    $case($id, $executorId);
+    $case($id, $executor_id);
 
     return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
   }

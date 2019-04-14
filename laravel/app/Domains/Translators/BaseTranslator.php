@@ -6,22 +6,22 @@ class BaseTranslator
 {
   protected static function setRelations(object $entity, array $translatorMap, array $relations): void
   {
-    $relMap = [];
+    $rel_map = [];
     foreach ($relations as $relation) {
       if ($relation) {
         $elements = explode('.', $relation, 2);
         $one = $elements[0];
         $others = (2 == count($elements)) ? $elements[1] : null;
-        if (!array_key_exists($one, $relMap)) {
-          $relMap[$one] = [];
+        if (!array_key_exists($one, $rel_map)) {
+          $rel_map[$one] = [];
         }
         if ($others) {
-          $relMap[$one][] = $others;
+          $rel_map[$one][] = $others;
         }
       }
     }
 
-    foreach ($relMap as $key => $value) {
+    foreach ($rel_map as $key => $value) {
       if (array_key_exists($key, $translatorMap)) {
         $entity->{$key} = $translatorMap[$key]($value);
       }

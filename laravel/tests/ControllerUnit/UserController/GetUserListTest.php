@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\ControllerUnit\Users;
+namespace Tests\ControllerUnit\UserController;
 
 use App\Domains\User;
 use App\Repositories\IUserRepository;
@@ -11,7 +11,7 @@ use Tests\ControllerUnit\ContollerTestCase;
  * @internal
  * @coversNothing
  */
-class GetListTest extends ContollerTestCase
+class GetUserListTest extends ContollerTestCase
 {
   protected $user_repository_mock;
 
@@ -27,7 +27,7 @@ class GetListTest extends ContollerTestCase
     parent::tearDown();
   }
 
-  public function testGetList()
+  public function testGetUserList()
   {
     $this->user_repository_mock->shouldReceive('getList')
       ->andReturn(new Collection([

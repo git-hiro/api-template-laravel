@@ -21,14 +21,14 @@ class Comment extends Entity
    *
    * @var string
    */
-  public $userId;
+  public $user_id;
 
   /**
    * @OA\Property()
    *
    * @var string
    */
-  public $articleId;
+  public $article_id;
 
   public $user;
   public $article;

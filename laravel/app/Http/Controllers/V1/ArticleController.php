@@ -103,10 +103,10 @@ class ArticleController extends Controller
   {
     $data = $request->validated();
 
-    $executorId = Str::uuid();
+    $executor_id = Str::uuid();
 
-    $articleReq = ArticleTranslator::ofArray($data['article']);
-    $article = $case($articleReq, $executorId);
+    $article_req = ArticleTranslator::ofArray($data['article']);
+    $article = $case($article_req, $executor_id);
 
     return new JsonResponse(['article' => $article], JsonResponse::HTTP_CREATED);
   }
@@ -152,10 +152,10 @@ class ArticleController extends Controller
       'article.email' => 'required|email',
     ]);
 
-    $executorId = Str::uuid();
+    $executor_id = Str::uuid();
 
     $articleReq = ArticleTranslator::ofArray($data['article']);
-    $article = $case($id, $articleReq, $executorId);
+    $article = $case($id, $articleReq, $executor_id);
 
     return new JsonResponse(['article' => $article], JsonResponse::HTTP_OK);
   }
@@ -179,9 +179,9 @@ class ArticleController extends Controller
    */
   public function destroy(DeleteArticleCase $case, string $id)
   {
-    $executorId = Str::uuid();
+    $executor_id = Str::uuid();
 
-    $case($id, $executorId);
+    $case($id, $executor_id);
 
     return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
   }
@@ -255,10 +255,10 @@ class ArticleController extends Controller
   {
     $data = $request->validated();
 
-    $executorId = Str::uuid();
+    $executor_id = Str::uuid();
 
     $commentReq = CommentTranslator::ofArray($data['comment']);
-    $comment = $case($commentReq, $executorId);
+    $comment = $case($commentReq, $executor_id);
 
     return new JsonResponse(['comment' => $comment], JsonResponse::HTTP_CREATED);
   }
