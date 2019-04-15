@@ -7,8 +7,11 @@ use App\Repositories\IUserRepository;
 use Tests\ControllerUnit\ControllerTestCase;
 
 /**
+ * @covers \App\Domains\Translators\UserTranslator
+ * @covers \App\Http\Controllers\V1\UserController
+ * @covers \App\UseCases\Users\GetUserCase
+ *
  * @internal
- * @coversNothing
  */
 class GetUserTest extends ControllerTestCase
 {

@@ -11,8 +11,10 @@ use App\Repositories\Datasources\DB\UserModel;
 use Illuminate\Support\Carbon;
 
 /**
+ * @covers \App\Repositories\CommentRepository
+ * @covers \App\Repositories\Datasources\DB\CommentModel
+ *
  * @internal
- * @coversNothing
  */
 class CommentRepositoryTest extends RepositoryTestCase
 {

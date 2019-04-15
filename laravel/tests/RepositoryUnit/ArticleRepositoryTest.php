@@ -11,8 +11,10 @@ use App\Repositories\Datasources\DB\UserModel;
 use Illuminate\Support\Carbon;
 
 /**
+ * @covers \App\Repositories\ArticleRepository
+ * @covers \App\Repositories\Datasources\DB\ArticleModel
+ *
  * @internal
- * @coversNothing
  */
 class ArticleRepositoryTest extends RepositoryTestCase
 {
