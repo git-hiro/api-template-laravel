@@ -3,13 +3,13 @@
 namespace Tests\ControllerUnit\UserController;
 
 use App\Repositories\IUserRepository;
-use Tests\ControllerUnit\ContollerTestCase;
+use Tests\ControllerUnit\ControllerTestCase;
 
 /**
  * @internal
  * @coversNothing
  */
-class DeleteUserTest extends ContollerTestCase
+class DeleteUserTest extends ControllerTestCase
 {
   protected $user_repository_mock;
 

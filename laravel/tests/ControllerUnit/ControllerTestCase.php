@@ -11,7 +11,7 @@ use Tests\TestCase;
  * @internal
  * @coversNothing
  */
-abstract class ContollerTestCase extends TestCase
+abstract class ControllerTestCase extends TestCase
 {
   protected $db_mock;
   protected $db_pgsql_spy;

@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 class UserTranslator extends BaseTranslator
 {
-  public static function new(array $attributes = []): Article
+  public static function new(array $attributes = []): User
   {
     if (!array_key_exists('id', $attributes)) {
       $attributes['id'] = Str::orderedUuid()->toString();

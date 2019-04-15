@@ -5,13 +5,13 @@ namespace App\Repositories\Datasources\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ChildModel extends Model
+class ArticleModel extends Model
 {
   use SoftDeletes;
 
   public $incrementing = false;
 
-  protected $table = 'children';
+  protected $table = 'articles';
 
   protected $fillable = [
     'user_id',

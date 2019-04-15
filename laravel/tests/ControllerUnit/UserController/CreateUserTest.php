@@ -4,13 +4,13 @@ namespace Tests\ControllerUnit\UserController;
 
 use App\Domains\User;
 use App\Repositories\IUserRepository;
-use Tests\ControllerUnit\ContollerTestCase;
+use Tests\ControllerUnit\ControllerTestCase;
 
 /**
  * @internal
  * @coversNothing
  */
-class CreateUserTest extends ContollerTestCase
+class CreateUserTest extends ControllerTestCase
 {
   protected $user_repository_mock;
 

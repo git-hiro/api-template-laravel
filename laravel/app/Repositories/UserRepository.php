@@ -60,6 +60,7 @@ class UserRepository implements IUserRepository
 
     $model = new UserModel();
     $model->fill($user->toArray())->forceFill([
+      'id'         => $user->id,
       'creator_id' => $executor_id,
       'updater_id' => $executor_id,
     ])->save();
