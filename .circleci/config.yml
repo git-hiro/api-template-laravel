@@ -42,8 +42,7 @@ jobs:
           name: cp .env
           command: |
             cd laravel
-            cp .env.local .env
-            php artisan key:generate
+            cp .env.testing .env
 
       - run:
           name: init db
