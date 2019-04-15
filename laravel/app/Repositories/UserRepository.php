@@ -30,7 +30,9 @@ class UserRepository implements IUserRepository
     $query = UserModel::query()->with($relations);
     $models = $query->get();
 
-    return collect($models)->map(function ($model) use ($relations) {return UserTranslator::ofModel($model, $relations); });
+    return collect($models)->map(function ($model) use ($relations) {
+      return UserTranslator::ofModel($model, $relations);
+    });
   }
 
   public function getItem(string $id, array $relations = [], bool $with_deleted = false): ?User

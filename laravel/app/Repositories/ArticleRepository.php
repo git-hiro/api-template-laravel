@@ -29,7 +29,9 @@ class ArticleRepository implements IArticleRepository
     $query = ArticleModel::query()->with($relations);
     $models = $query->get();
 
-    return collect($models)->map(function ($model) use ($relations) {return ArticleTranslator::ofModel($model, $relations); });
+    return collect($models)->map(function ($model) use ($relations) {
+      return ArticleTranslator::ofModel($model, $relations);
+    });
   }
 
   public function getItem(string $id, array $relations = [], bool $with_deleted = false): ?Article

@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 class CommentTranslator extends BaseTranslator
 {
-  public static function new(array $attributes = []): Article
+  public static function new(array $attributes = []): Comment
   {
     if (!array_key_exists('id', $attributes)) {
       $attributes['id'] = Str::orderedUuid()->toString();
@@ -17,16 +17,17 @@ class CommentTranslator extends BaseTranslator
     return new Comment($attributes);
   }
 
-  public static function ofModel(?CommentModel $model, array $relations): ?Comment
+  public static function ofModel(?CommentModel $model, array $relations = []): ?Comment
   {
     if (!$model) {
       return null;
     }
 
     $comment = new Comment([
-      'id'      => $model->id,
-      'user_id' => $model->user_id,
-      'content' => $model->content,
+      'id'         => $model->id,
+      'user_id'    => $model->user_id,
+      'article_id' => $model->article_id,
+      'content'    => $model->content,
     ]);
 
     $map = [

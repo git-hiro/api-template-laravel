@@ -28,7 +28,9 @@ class CommentRepository implements ICommentRepository
     $query = CommentModel::query()->with($relations);
     $models = $query->get();
 
-    return collect($models)->map(function ($model) use ($relations) {return CommentTranslator::ofModel($model, $relations); });
+    return collect($models)->map(function ($model) use ($relations) {
+      return CommentTranslator::ofModel($model, $relations);
+    });
   }
 
   public function getItem(string $id, array $relations = [], bool $with_deleted = false): ?Comment
@@ -40,15 +42,6 @@ class CommentRepository implements ICommentRepository
 
   public function create(Comment $comment, string $executor_id): Comment
   {
-    $model = $this->_getModelByUnique($comment->email, [], true);
-    if ($model) {
-      if ($model->deleted_at) {
-        $model->forceDelete();
-      } else {
-        throw new InvalidArgumentException();
-      }
-    }
-
     $model = new CommentModel();
     $model->fill($comment->toArray())->forceFill([
       'id'         => $comment->id,
@@ -61,17 +54,6 @@ class CommentRepository implements ICommentRepository
 
   public function update(string $id, Comment $comment, string $executor_id): Comment
   {
-    if ($comment->email) {
-      $model = $this->_getModelByUnique($comment->email, [], true);
-      if ($model && $model->id !== $id) {
-        if ($model->deleted_at) {
-          $model->forceDelete();
-        } else {
-          throw new InvalidArgumentException();
-        }
-      }
-    }
-
     $model = $this->_getModel($id, [], false);
     if (!$model) {
       throw new InvalidArgumentException();
