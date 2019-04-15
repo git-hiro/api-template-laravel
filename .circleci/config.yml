@@ -20,7 +20,11 @@ jobs:
           keys:
             - composer-v1-{{ checksum "laravel/composer.lock" }}
             - composer-v1-
+      - run: pwd
+      - run: ls -al
       - run: cd laravel
+      - run: pwd
+      - run: ls -al
       - run: composer install -n --prefer-dist
       - save_cache: 
           key: composer-v1-{{ checksum "laravel/composer.lock" }}
