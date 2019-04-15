@@ -13,7 +13,7 @@ jobs:
 
     steps: 
       - checkout 
-      - run: apt-get update && apt-get install -y libpq-dev
+      - run: apt-get install -y libpq-dev
       - run: sudo docker-php-ext-install bcmath pdo_pgsql
       - run: sudo composer self-update
       - restore_cache: 
