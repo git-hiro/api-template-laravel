@@ -1,0 +1,29 @@
+version: 2 
+
+jobs: 
+  build: 
+    working_directory: ~/api-template-laravel 
+
+    docker: 
+      - image: circleci/php:7.3.4-fpm-stretch
+
+      - image: circleci/postgres:10.7-alpine
+        environment:
+          POSTGRES_USER: postgres
+
+    steps: 
+      - checkout 
+      - run: sudo apt install -y libsqlite3-dev zlib1g-dev
+      - run: sudo docker-php-ext-install bcmath pdo_pgsql
+      - run: sudo composer self-update
+      - restore_cache: 
+          keys:
+            - composer-v1-{{ checksum "composer.lock" }}
+            - composer-v1-
+      - run: composer install -n --prefer-dist
+      - save_cache: 
+          key: composer-v1-{{ checksum "composer.lock" }}
+          paths:
+            - vendor
+
+
