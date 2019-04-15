@@ -18,7 +18,9 @@ jobs:
           name: apt update/install
           command: |
             sudo apt-get update
-            sudo apt-get install -y libpq-dev postgresql-client
+            sudo apt-get install -y libpq-dev
+
+      - run: sudo apt install -y postgresql-client || true
 
       - run: sudo docker-php-ext-install bcmath pdo_pgsql
       - run: sudo composer self-update
