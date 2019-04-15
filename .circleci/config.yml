@@ -55,5 +55,8 @@ jobs:
           name: phpunit
           command: |
             cd laravel
-            ./vendor/bin/phpunit
+            phpdbg -qrr ./vendor/bin/phpunit --coverage-html /tmp/coverage
 
+      - store_artifacts:
+          path: /tmp/coverage
+          destination: coverage
