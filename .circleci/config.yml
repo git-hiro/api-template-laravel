@@ -17,7 +17,7 @@ jobs:
           name: apt update/install
           command: |
             sudo apt-get update
-            sudo apt-get install -y libpq-dev php7.3-pgsql
+            sudo apt-get install -y libpq-dev
 
       - run: sudo docker-php-ext-install bcmath pdo_pgsql
       - run: sudo composer self-update
@@ -34,6 +34,13 @@ jobs:
           key: composer-v1-{{ checksum "laravel/composer.lock" }}
           paths:
             - laravel/vendor
+
+      - run:
+          name: cp .env
+          command: |
+            cd laravel
+            cp .env.local .env
+            php artisan key:generate
 
       - run:
           name: phpunit
