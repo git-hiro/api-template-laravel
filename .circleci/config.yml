@@ -58,5 +58,5 @@ jobs:
             phpdbg -qrr ./vendor/bin/phpunit
 
       - store_artifacts:
-          path: /phpunit/html
+          path: ./phpunit/html
           destination: coverage
