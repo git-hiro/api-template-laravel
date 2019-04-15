@@ -15,6 +15,8 @@ class ArticleModel extends Model
 
   protected $fillable = [
     'user_id',
+    'subject',
+    'content',
   ];
 
   protected $dates = ['created_at', 'updated_at', 'deleted_at'];

@@ -24,8 +24,9 @@ class CommentTranslator extends BaseTranslator
     }
 
     $comment = new Comment([
-      'id'     => $model->id,
-      'userId' => $model->user_id,
+      'id'      => $model->id,
+      'user_id' => $model->user_id,
+      'content' => $model->content,
     ]);
 
     $map = [

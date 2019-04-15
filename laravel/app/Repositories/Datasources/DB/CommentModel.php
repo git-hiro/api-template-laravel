@@ -16,6 +16,7 @@ class CommentModel extends Model
   protected $fillable = [
     'user_id',
     'article_id',
+    'content',
   ];
 
   protected $dates = ['created_at', 'updated_at', 'deleted_at'];

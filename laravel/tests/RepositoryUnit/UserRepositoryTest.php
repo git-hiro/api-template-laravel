@@ -17,15 +17,15 @@ use Illuminate\Support\Carbon;
 class UserRepositoryTest extends RepositoryTestCase
 {
   protected $user_id_01 = '9e20291e-5892-42ac-9013-6cb46cafc27f';
-  protected $user_name_01 = 'user_name_01';
-  protected $user_email_01 = 'user_email_01@test.localhost';
+  protected $user_name_01 = 'test_name_01';
+  protected $user_email_01 = 'test_email_01@test.localhost';
 
   protected $user_id_02 = '3bc0ff7c-6e60-421d-a077-b7ba9f336e1b';
-  protected $user_name_02 = 'user_name_02';
-  protected $user_email_02 = 'user_email_02@test.localhost';
+  protected $user_name_02 = 'test_name_02';
+  protected $user_email_02 = 'test_email_02@test.localhost';
 
   protected $user_id_03 = '14301f9b-6886-4842-a2a0-85998939007c';
-  protected $user_email_03 = 'user_email_03@test.localhost';
+  protected $user_email_03 = 'test_email_03@test.localhost';
 
   protected $article_id_01 = '2d9d9ba9-c6f2-45b9-83e1-8bd54a0580d7';
 
@@ -54,6 +54,7 @@ class UserRepositoryTest extends RepositoryTestCase
       'email'      => $this->user_email_03,
       'deleted_at' => new Carbon(),
     ]);
+
     factory(ArticleModel::class)->create([
       'id'      => $this->article_id_01,
       'user_id' => $this->user_id_01,
@@ -65,6 +66,7 @@ class UserRepositoryTest extends RepositoryTestCase
       'user_id'    => $this->user_id_01,
       'deleted_at' => new Carbon(),
     ]);
+
     factory(CommentModel::class)->create([
       'user_id'    => $this->user_id_01,
       'article_id' => $this->article_id_01,

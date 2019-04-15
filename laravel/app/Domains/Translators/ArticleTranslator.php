@@ -17,15 +17,17 @@ class ArticleTranslator extends BaseTranslator
     return new Article($attributes);
   }
 
-  public static function ofModel(?ArticleModel $model, array $relations): ?Article
+  public static function ofModel(?ArticleModel $model, array $relations = []): ?Article
   {
     if (!$model) {
       return null;
     }
 
     $article = new Article([
-      'id'     => $model->id,
-      'userId' => $model->user_id,
+      'id'      => $model->id,
+      'user_id' => $model->user_id,
+      'subject' => $model->subject,
+      'content' => $model->content,
     ]);
 
     $map = [
