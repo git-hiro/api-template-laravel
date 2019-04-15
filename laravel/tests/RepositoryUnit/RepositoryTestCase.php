@@ -21,9 +21,9 @@ abstract class RepositoryTestCase extends TestCase
 
   protected function truncate(string $className): void
   {
-    Schema::disableForeignKeyConstraints();
+    // Schema::disableForeignKeyConstraints();
     $className::query()->forceDelete();
-    Schema::enableForeignKeyConstraints();
+    // Schema::enableForeignKeyConstraints();
   }
 
   protected function addMock(string $class): MockInterface
