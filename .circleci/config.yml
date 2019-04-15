@@ -49,6 +49,7 @@ jobs:
           name: init db
           command: |
             psql -h localhost -p 5432 -U postgres -f tools/sql/01_create_db_dev.sql
+            cd laravel
             php artisan migrate
 
       - run:
