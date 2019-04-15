@@ -30,4 +30,9 @@ jobs:
           paths:
             - laravel/vendor
 
+      - run:
+          name: phpunit
+          command: |
+            cd laravel
+            ./vendor/bin/phpunit
 
