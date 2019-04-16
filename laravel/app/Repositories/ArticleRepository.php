@@ -46,6 +46,7 @@ class ArticleRepository implements IArticleRepository
     $model = new ArticleModel();
     $model->fill($article->toArray())->forceFill([
       'id'         => $article->id,
+      'user_id'    => $executor_id,
       'creator_id' => $executor_id,
       'updater_id' => $executor_id,
     ])->save();
