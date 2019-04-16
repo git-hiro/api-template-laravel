@@ -60,3 +60,6 @@ jobs:
       - store_artifacts:
           path: ./phpunit/html
           destination: coverage
+
+      - store_test_results:
+          path: ./phpunit
