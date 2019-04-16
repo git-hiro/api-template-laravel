@@ -4,7 +4,9 @@ namespace App\Http\Controllers\V1;
 
 use App\Domains\Translators\UserTranslator;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Requests\User\CreateUserRequest;
+use App\Http\Requests\User\DeleteUserRequest;
+use App\Http\Requests\User\GetUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\UseCases\Users\CreateUserCase;
 use App\UseCases\Users\DeleteUserCase;
@@ -22,6 +24,18 @@ use Illuminate\Support\Str;
  */
 class UserController extends Controller
 {
+  /**
+   * @OA\Parameter(
+   *   name="user_id",
+   *   in="path",
+   *   description="",
+   *   required=true,
+   *   @OA\Schema(
+   *     type="string",
+   *   ),
+   * )
+   */
+
   /**
    * @OA\Get(
    *   path="/api/v1/users",
@@ -47,16 +61,10 @@ class UserController extends Controller
 
   /**
    * @OA\Get(
-   *   path="/api/v1/users/{userId}",
+   *   path="/api/v1/users/{user_id}",
    *   tags={"users"},
    *   @OA\Parameter(
-   *     name="userId",
-   *     in="path",
-   *     description="",
-   *     required=true,
-   *     @OA\Schema(
-   *       type="string",
-   *     )
+   *     ref="#/components/parameters/user_id",
    *   ),
    *   @OA\Response(response="200", description="",
    *     @OA\JsonContent(
@@ -69,9 +77,10 @@ class UserController extends Controller
    *   )
    * )
    */
-  public function show(GetUserCase $case, string $id)
+  public function show(GetUserCase $case, GetUserRequest $request)
   {
-    $user = $case($id);
+    $data = $request->validated();
+    $user = $case($data['id']);
 
     return new JsonResponse(['user' => $user], JsonResponse::HTTP_OK);
   }
@@ -82,12 +91,8 @@ class UserController extends Controller
    *   tags={"users"},
    *   @OA\RequestBody(description="",
    *     @OA\JsonContent(
-   *       type="object",
-   *       @OA\Property(
-   *         property="user",
-   *         ref="#/components/schemas/User"
-   *       ),
-   *     )
+   *       ref="#/components/schemas/CreateUserRequest",
+   *     ),
    *   ),
    *   @OA\Response(response="201", description="",
    *     @OA\JsonContent(
@@ -100,7 +105,7 @@ class UserController extends Controller
    *   )
    * )
    */
-  public function store(CreateUserCase $case, StoreUserRequest $request)
+  public function store(CreateUserCase $case, CreateUserRequest $request)
   {
     $data = $request->validated();
 
@@ -114,24 +119,14 @@ class UserController extends Controller
 
   /**
    * @OA\Put(
-   *   path="/api/v1/users/{userId}",
+   *   path="/api/v1/users/{user_id}",
    *   tags={"users"},
    *   @OA\Parameter(
-   *     name="userId",
-   *     in="path",
-   *     description="",
-   *     required=true,
-   *     @OA\Schema(
-   *       type="string",
-   *     )
+   *     ref="#/components/parameters/user_id",
    *   ),
    *   @OA\RequestBody(description="",
    *     @OA\JsonContent(
-   *       type="object",
-   *       @OA\Property(
-   *         property="user",
-   *         ref="#/components/schemas/User"
-   *       ),
+   *       ref="#/components/schemas/UpdateUserRequest",
    *     )
    *   ),
    *   @OA\Response(response="200", description="",
@@ -159,48 +154,38 @@ class UserController extends Controller
 
   /**
    * @OA\Delete(
-   *   path="/api/v1/users/{userId}",
+   *   path="/api/v1/users/{user_id}",
    *   tags={"users"},
    *   @OA\Parameter(
-   *     name="userId",
-   *     in="path",
-   *     description="",
-   *     required=true,
-   *     @OA\Schema(
-   *       type="string",
-   *     )
+   *     ref="#/components/parameters/user_id",
    *   ),
    *   @OA\Response(response="204", description="",
    *   )
    * )
    */
-  public function destroy(DeleteUserCase $case, string $id)
+  public function destroy(DeleteUserCase $case, DeleteUserRequest $request)
   {
+    $data = $request->validated();
+
     $executor_id = Str::uuid();
 
-    $case($id, $executor_id);
+    $case($data['id'], $executor_id);
 
     return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
   }
 
   /**
    * @OA\Get(
-   *   path="/api/v1/users/{userId}/articles",
+   *   path="/api/v1/users/{user_id}/articles",
    *   tags={"users"},
    *   @OA\Parameter(
-   *     name="userId",
-   *     in="path",
-   *     description="",
-   *     required=true,
-   *     @OA\Schema(
-   *       type="string",
-   *     )
+   *     ref="#/components/parameters/user_id",
    *   ),
    *   @OA\Response(response="200", description="",
    *     @OA\JsonContent(
    *       type="object",
    *       @OA\Property(
-   *         property="comments",
+   *         property="articles",
    *         type="array",
    *         @OA\Items(ref="#/components/schemas/Article"),
    *       )
@@ -208,25 +193,21 @@ class UserController extends Controller
    *   )
    * )
    */
-  public function indexArticles(GetArticleListCase $case)
+  public function indexArticles(GetUserCase $case, GetUserRequest $request)
   {
-    $comments = $case();
+    $data = $request->validated();
 
-    return new JsonResponse(['comments' => $comments], JsonResponse::HTTP_OK);
+    $user = $case($data['id'], ['comments']);
+
+    return new JsonResponse(['articles' => $user->articles], JsonResponse::HTTP_OK);
   }
 
   /**
    * @OA\Get(
-   *   path="/api/v1/users/{userId}/comments",
+   *   path="/api/v1/users/{user_id}/comments",
    *   tags={"users"},
    *   @OA\Parameter(
-   *     name="userId",
-   *     in="path",
-   *     description="",
-   *     required=true,
-   *     @OA\Schema(
-   *       type="string",
-   *     )
+   *     ref="#/components/parameters/user_id",
    *   ),
    *   @OA\Response(response="200", description="",
    *     @OA\JsonContent(
@@ -240,10 +221,12 @@ class UserController extends Controller
    *   )
    * )
    */
-  public function indexComments(GetCommentListCase $case)
+  public function indexComments(GetUserCase $case, GetUserRequest $request)
   {
-    $comments = $case();
+    $data = $request->validated();
 
-    return new JsonResponse(['comments' => $comments], JsonResponse::HTTP_OK);
+    $user = $case($data['id'], ['comments']);
+
+    return new JsonResponse(['comments' => $user->comments], JsonResponse::HTTP_OK);
   }
 }
