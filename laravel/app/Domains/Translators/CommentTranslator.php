@@ -42,4 +42,15 @@ class CommentTranslator extends BaseTranslator
 
     return $comment;
   }
+
+  public static function ofArray(array $array): ?Comment
+  {
+    if (!$array) {
+      return null;
+    }
+
+    return new Comment([
+      'content' => self::getProperty('content', $array),
+    ]);
+  }
 }

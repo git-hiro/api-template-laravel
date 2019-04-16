@@ -44,4 +44,16 @@ class ArticleTranslator extends BaseTranslator
 
     return $article;
   }
+
+  public static function ofArray(array $array): ?Article
+  {
+    if (!$array) {
+      return null;
+    }
+
+    return new Article([
+      'subject' => self::getProperty('subject', $array),
+      'content' => self::getProperty('content', $array),
+    ]);
+  }
 }
