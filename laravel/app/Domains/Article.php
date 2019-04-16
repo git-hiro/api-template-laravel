@@ -23,6 +23,20 @@ class Article extends Entity
    */
   public $user_id;
 
+  /**
+   * @OA\Property()
+   *
+   * @var string
+   */
+  public $subject;
+
+  /**
+   * @OA\Property()
+   *
+   * @var string
+   */
+  public $content;
+
   public $user;
   public $comments;
 }

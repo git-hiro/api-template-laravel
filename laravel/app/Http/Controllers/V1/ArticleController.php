@@ -4,7 +4,10 @@ namespace App\Http\Controllers\V1;
 
 use App\Domains\Translators\ArticleTranslator;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ArticleRequest;
+use App\Http\Requests\Article\CreateArticleRequest;
+use App\Http\Requests\Article\DeleteArticleRequest;
+use App\Http\Requests\Article\GetArticleRequest;
+use App\Http\Requests\Article\UpdateArticleRequest;
 use App\UseCases\Articles\CreateArticleCase;
 use App\UseCases\Articles\DeleteArticleCase;
 use App\UseCases\Articles\GetArticleCase;
@@ -21,6 +24,18 @@ use Illuminate\Support\Str;
  */
 class ArticleController extends Controller
 {
+  /**
+   * @OA\Parameter(
+   *   name="article_id",
+   *   in="path",
+   *   description="",
+   *   required=true,
+   *   @OA\Schema(
+   *     type="string",
+   *   ),
+   * )
+   */
+
   /**
    * @OA\Get(
    *   path="/api/v1/articles",
@@ -46,16 +61,10 @@ class ArticleController extends Controller
 
   /**
    * @OA\Get(
-   *   path="/api/v1/articles/{articleId}",
+   *   path="/api/v1/articles/{article_id}",
    *   tags={"articles"},
    *   @OA\Parameter(
-   *     name="articleId",
-   *     in="path",
-   *     description="",
-   *     required=true,
-   *     @OA\Schema(
-   *       type="string",
-   *     )
+   *     ref="#/components/parameters/article_id",
    *   ),
    *   @OA\Response(response="200", description="",
    *     @OA\JsonContent(
@@ -68,9 +77,10 @@ class ArticleController extends Controller
    *   )
    * )
    */
-  public function show(GetArticleCase $case, string $id)
+  public function show(GetArticleCase $case, GetArticleRequest $request)
   {
-    $article = $case($id);
+    $data = $request->validated();
+    $article = $case($data['id']);
 
     return new JsonResponse(['article' => $article], JsonResponse::HTTP_OK);
   }
@@ -81,11 +91,7 @@ class ArticleController extends Controller
    *   tags={"articles"},
    *   @OA\RequestBody(description="",
    *     @OA\JsonContent(
-   *       type="object",
-   *       @OA\Property(
-   *         property="article",
-   *         ref="#/components/schemas/Article"
-   *       ),
+   *       ref="#/components/schemas/CreateArticleRequest",
    *     )
    *   ),
    *   @OA\Response(response="201", description="",
@@ -99,7 +105,7 @@ class ArticleController extends Controller
    *   )
    * )
    */
-  public function store(CreateArticleCase $case, ArticleRequest $request)
+  public function store(CreateArticleCase $case, CreateArticleRequest $request)
   {
     $data = $request->validated();
 
@@ -113,24 +119,14 @@ class ArticleController extends Controller
 
   /**
    * @OA\Put(
-   *   path="/api/v1/articles/{articleId}",
+   *   path="/api/v1/articles/{article_id}",
    *   tags={"articles"},
    *   @OA\Parameter(
-   *     name="articleId",
-   *     in="path",
-   *     description="",
-   *     required=true,
-   *     @OA\Schema(
-   *       type="string",
-   *     )
+   *     ref="#/components/parameters/article_id",
    *   ),
    *   @OA\RequestBody(description="",
    *     @OA\JsonContent(
-   *       type="object",
-   *       @OA\Property(
-   *         property="article",
-   *         ref="#/components/schemas/Article"
-   *       ),
+   *       ref="#/components/schemas/UpdateArticleRequest",
    *     )
    *   ),
    *   @OA\Response(response="200", description="",
@@ -144,60 +140,46 @@ class ArticleController extends Controller
    *   )
    * )
    */
-  public function update(UpdateArticleCase $case, string $id, ArticleRequest $request)
+  public function update(UpdateArticleCase $case, UpdateArticleRequest $request)
   {
-    $data = $request->validate([
-      'article'       => 'required',
-      'article.name'  => 'required',
-      'article.email' => 'required|email',
-    ]);
+    $data = $request->validated();
 
     $executor_id = Str::uuid();
 
-    $articleReq = ArticleTranslator::ofArray($data['article']);
-    $article = $case($id, $articleReq, $executor_id);
+    $article_req = ArticleTranslator::ofArray($data['article']);
+    $article = $case($data['id'], $article_req, $executor_id);
 
     return new JsonResponse(['article' => $article], JsonResponse::HTTP_OK);
   }
 
   /**
    * @OA\Delete(
-   *   path="/api/v1/articles/{articleId}",
+   *   path="/api/v1/articles/{article_id}",
    *   tags={"articles"},
    *   @OA\Parameter(
-   *     name="articleId",
-   *     in="path",
-   *     description="",
-   *     required=true,
-   *     @OA\Schema(
-   *       type="string",
-   *     )
+   *     ref="#/components/parameters/article_id",
    *   ),
    *   @OA\Response(response="204", description="",
    *   )
    * )
    */
-  public function destroy(DeleteArticleCase $case, string $id)
+  public function destroy(DeleteArticleCase $case, DeleteArticleRequest $request)
   {
+    $data = $request->validated();
+
     $executor_id = Str::uuid();
 
-    $case($id, $executor_id);
+    $case($data['id'], $executor_id);
 
     return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
   }
 
   /**
    * @OA\Get(
-   *   path="/api/v1/articles/{articleId}/comments",
+   *   path="/api/v1/articles/{article_id}/comments",
    *   tags={"articles"},
    *   @OA\Parameter(
-   *     name="articleId",
-   *     in="path",
-   *     description="",
-   *     required=true,
-   *     @OA\Schema(
-   *       type="string",
-   *     )
+   *     ref="#/components/parameters/article_id",
    *   ),
    *   @OA\Response(response="200", description="",
    *     @OA\JsonContent(
@@ -211,33 +193,25 @@ class ArticleController extends Controller
    *   )
    * )
    */
-  public function indexComments(GetCommentListCase $case)
+  public function indexComments(GetArticleCase $case, GetArticleRequest $request)
   {
-    $comments = $case();
+    $data = $request->validated();
+
+    $article = $case($data['id'], ['comments']);
 
     return new JsonResponse(['comments' => $comments], JsonResponse::HTTP_OK);
   }
 
   /**
    * @OA\Post(
-   *   path="/api/v1/articles/{articleId}/comments",
+   *   path="/api/v1/articles/{article_id}/comments",
    *   tags={"articles"},
    *   @OA\Parameter(
-   *     name="articleId",
-   *     in="path",
-   *     description="",
-   *     required=true,
-   *     @OA\Schema(
-   *       type="string",
-   *     )
+   *     ref="#/components/parameters/article_id",
    *   ),
    *   @OA\RequestBody(description="",
    *     @OA\JsonContent(
-   *       type="object",
-   *       @OA\Property(
-   *         property="comment",
-   *         ref="#/components/schemas/Comment"
-   *       ),
+   *       ref="#/components/schemas/CreateCommentRequest",
    *     )
    *   ),
    *   @OA\Response(response="201", description="",
@@ -251,14 +225,14 @@ class ArticleController extends Controller
    *   )
    * )
    */
-  public function storeComment(CreateCommentCase $case, CommentRequest $request)
+  public function storeComment(CreateCommentCase $case, CreateCommentRequest $request)
   {
     $data = $request->validated();
 
     $executor_id = Str::uuid();
 
-    $commentReq = CommentTranslator::ofArray($data['comment']);
-    $comment = $case($commentReq, $executor_id);
+    $comment_req = CommentTranslator::ofArray($data['comment']);
+    $comment = $case($comment_req, $executor_id);
 
     return new JsonResponse(['comment' => $comment], JsonResponse::HTTP_CREATED);
   }
