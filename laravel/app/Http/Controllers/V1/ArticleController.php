@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\V1;
 
 use App\Domains\Translators\ArticleTranslator;
+use App\Domains\Translators\CommentTranslator;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Article\CreateArticleCommentRequest;
 use App\Http\Requests\Article\CreateArticleRequest;
 use App\Http\Requests\Article\DeleteArticleRequest;
 use App\Http\Requests\Article\GetArticleRequest;
 use App\Http\Requests\Article\UpdateArticleRequest;
 use App\UseCases\Articles\CreateArticleCase;
+use App\UseCases\Articles\CreateArticleCommentCase;
 use App\UseCases\Articles\DeleteArticleCase;
 use App\UseCases\Articles\GetArticleCase;
 use App\UseCases\Articles\GetArticleListCase;
@@ -225,14 +228,14 @@ class ArticleController extends Controller
    *   )
    * )
    */
-  public function storeComment(CreateCommentCase $case, CreateCommentRequest $request)
+  public function storeComment(CreateArticleCommentCase $case, CreateArticleCommentRequest $request)
   {
     $data = $request->validated();
 
     $executor_id = Str::uuid();
 
     $comment_req = CommentTranslator::ofArray($data['comment']);
-    $comment = $case($comment_req, $executor_id);
+    $comment = $case($data['id'], $comment_req, $executor_id);
 
     return new JsonResponse(['comment' => $comment], JsonResponse::HTTP_CREATED);
   }

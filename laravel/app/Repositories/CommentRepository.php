@@ -14,7 +14,7 @@ interface ICommentRepository
 
   public function getItem(string $id, array $relations = []): ?Comment;
 
-  public function create(Comment $comment, string $executor_id): Comment;
+  public function create(string $article_id, Comment $comment, string $executor_id): Comment;
 
   public function update(string $id, Comment $comment, string $executor_id): Comment;
 
@@ -40,11 +40,13 @@ class CommentRepository implements ICommentRepository
     return CommentTranslator::ofModel($model, $relations);
   }
 
-  public function create(Comment $comment, string $executor_id): Comment
+  public function create(string $article_id, Comment $comment, string $executor_id): Comment
   {
     $model = new CommentModel();
     $model->fill($comment->toArray())->forceFill([
       'id'         => $comment->id,
+      'user_id'    => $executor_id,
+      'article_id' => $article_id,
       'creator_id' => $executor_id,
       'updater_id' => $executor_id,
     ])->save();

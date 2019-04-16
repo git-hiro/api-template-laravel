@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Comment;
+namespace App\Http\Requests\Article;
 
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * @OA\Schema(
- *   title="CreateCommentRequest",
+ *   title="CreateArticleCommentRequest",
  *   type="object",
  *   @OA\Property(
  *     property="comment",
@@ -15,13 +15,22 @@ use Illuminate\Foundation\Http\FormRequest;
  *   ),
  * )
  */
-class CreateCommentRequest extends FormRequest
+class CreateArticleCommentRequest extends FormRequest
 {
   public function rules()
   {
     return [
+      'id'              => 'required|uuid',
       'comment'         => 'required',
       'comment.content' => 'required',
     ];
+  }
+
+  protected function validationData()
+  {
+    $data = parent::validationData();
+    $data['id'] = $this->route('article');
+
+    return $data;
   }
 }
