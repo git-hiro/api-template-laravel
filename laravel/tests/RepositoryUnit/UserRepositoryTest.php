@@ -11,6 +11,7 @@ use App\Repositories\UserRepository;
 use Illuminate\Support\Carbon;
 
 /**
+ * @covers \App\Domains\Translators\UserTranslator
  * @covers \App\Repositories\Datasources\DB\UserModel
  * @covers \App\Repositories\UserRepository
  *

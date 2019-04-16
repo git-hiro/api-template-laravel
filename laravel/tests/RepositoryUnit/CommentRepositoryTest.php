@@ -11,6 +11,7 @@ use App\Repositories\Datasources\DB\UserModel;
 use Illuminate\Support\Carbon;
 
 /**
+ * @covers \App\Domains\Translators\CommentTranslator
  * @covers \App\Repositories\CommentRepository
  * @covers \App\Repositories\Datasources\DB\CommentModel
  *
