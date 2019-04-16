@@ -30,6 +30,13 @@ class Comment extends Entity
    */
   public $article_id;
 
+  /**
+   * @OA\Property()
+   *
+   * @var string
+   */
+  public $content;
+
   public $user;
   public $article;
 }
