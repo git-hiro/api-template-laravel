@@ -27,6 +27,7 @@
                 <file>./app/Console/Kernel.php</file>
                 <file>./app/Http/Kernel.php</file>
                 <file>./app/Http/Controllers/Controller.php</file>
+                <file>./app/Http/Controllers/OpenAPIController.php</file>
             </exclude>
         </whitelist>
     </filter>

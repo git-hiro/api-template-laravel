@@ -8,6 +8,7 @@ use Tests\ControllerUnit\ControllerTestCase;
 /**
  * @covers \App\Domains\Translators\CommentTranslator
  * @covers \App\Http\Controllers\V1\CommentController
+ * @covers \App\Http\Requests\Comment\DeleteCommentRequest
  * @covers \App\UseCases\Comments\DeleteCommentCase
  *
  * @internal

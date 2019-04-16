@@ -9,6 +9,7 @@ use Tests\ControllerUnit\ControllerTestCase;
 /**
  * @covers \App\Domains\Translators\CommentTranslator
  * @covers \App\Http\Controllers\V1\CommentController
+ * @covers \App\Http\Requests\Comment\GetCommentRequest
  * @covers \App\UseCases\Comments\GetCommentCase
  *
  * @internal

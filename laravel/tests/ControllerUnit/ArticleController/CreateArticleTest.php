@@ -9,7 +9,7 @@ use Tests\ControllerUnit\ControllerTestCase;
 /**
  * @covers \App\Domains\Translators\ArticleTranslator
  * @covers \App\Http\Controllers\V1\ArticleController
- * @covers \App\Http\Requests\Article\StoreArticleRequest
+ * @covers \App\Http\Requests\Article\CreateArticleRequest
  * @covers \App\UseCases\Articles\CreateArticleCase
  *
  * @internal

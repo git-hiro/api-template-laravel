@@ -8,6 +8,7 @@ use Tests\ControllerUnit\ControllerTestCase;
 /**
  * @covers \App\Domains\Translators\UserTranslator
  * @covers \App\Http\Controllers\V1\UserController
+ * @covers \App\Http\Requests\User\DeleteUserRequest
  * @covers \App\UseCases\Users\DeleteUserCase
  *
  * @internal
