@@ -27,8 +27,6 @@ class CommentRepositoryTest extends RepositoryTestCase
   protected $comment_id_02 = '037ee0a7-5082-426f-a15e-e94645594250';
   protected $comment_id_03 = '19b1c3be-2a98-477c-803a-00164a294576';
 
-  protected $executor_id = '2e5fe7c2-1cb0-4559-9cc5-2ccddec27f04';
-
   public function setUp(): void
   {
     parent::setUp();
@@ -100,11 +98,9 @@ class CommentRepositoryTest extends RepositoryTestCase
 
     $content = 'create_content';
 
-    $comment = $repository->create(CommentTranslator::new([
-      'user_id'    => $this->user_id,
-      'article_id' => $this->article_id,
-      'content'    => $content,
-    ]), $this->executor_id);
+    $comment = $repository->create($this->article_id, CommentTranslator::new([
+      'content' => $content,
+    ]), $this->user_id);
     $this->assertNotNull($comment->id);
     $this->assertSame($comment->user_id, $this->user_id);
     $this->assertSame($comment->article_id, $this->article_id);
@@ -120,7 +116,7 @@ class CommentRepositoryTest extends RepositoryTestCase
 
     $comment = $repository->update($this->comment_id_01, new Comment([
       'content' => $content,
-    ]), $this->executor_id);
+    ]), $this->user_id);
     $this->assertSame($comment->id, $this->comment_id_01);
     $this->assertSame($comment->content, $content);
   }
@@ -129,7 +125,7 @@ class CommentRepositoryTest extends RepositoryTestCase
   {
     $repository = new CommentRepository();
 
-    $repository->delete($this->comment_id_01, $this->executor_id);
+    $repository->delete($this->comment_id_01, $this->user_id);
     $article = $repository->getItem($this->comment_id_01);
     $this->assertNull($article);
   }

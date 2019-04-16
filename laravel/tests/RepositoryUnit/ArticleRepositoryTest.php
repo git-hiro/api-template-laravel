@@ -27,8 +27,6 @@ class ArticleRepositoryTest extends RepositoryTestCase
   protected $article_id_02 = '037ee0a7-5082-426f-a15e-e94645594250';
   protected $article_id_03 = '19b1c3be-2a98-477c-803a-00164a294576';
 
-  protected $executor_id = '2e5fe7c2-1cb0-4559-9cc5-2ccddec27f04';
-
   public function setUp(): void
   {
     parent::setUp();
@@ -38,7 +36,7 @@ class ArticleRepositoryTest extends RepositoryTestCase
     $this->truncate(CommentModel::class);
 
     factory(UserModel::class)->create([
-      'id'    => $this->user_id,
+      'id' => $this->user_id,
     ]);
 
     factory(ArticleModel::class)->create([
@@ -109,10 +107,9 @@ class ArticleRepositoryTest extends RepositoryTestCase
     $content = 'create_content';
 
     $article = $repository->create(ArticleTranslator::new([
-      'user_id' => $this->user_id,
       'subject' => $subject,
       'content' => $content,
-    ]), $this->executor_id);
+    ]), $this->user_id);
     $this->assertNotNull($article->id);
     $this->assertSame($article->user_id, $this->user_id);
     $this->assertSame($article->subject, $subject);
@@ -129,7 +126,7 @@ class ArticleRepositoryTest extends RepositoryTestCase
     $article = $repository->update($this->article_id_01, new Article([
       'subject' => $subject,
       'content' => $content,
-    ]), $this->executor_id);
+    ]), $this->user_id);
     $this->assertSame($article->id, $this->article_id_01);
     $this->assertSame($article->subject, $subject);
     $this->assertSame($article->content, $content);
@@ -139,7 +136,7 @@ class ArticleRepositoryTest extends RepositoryTestCase
   {
     $repository = new ArticleRepository();
 
-    $repository->delete($this->article_id_01, $this->executor_id);
+    $repository->delete($this->article_id_01, $this->user_id);
     $article = $repository->getItem($this->article_id_01);
     $this->assertNull($article);
   }
