@@ -7,6 +7,7 @@ use Tests\TestCase;
 
 /**
  * @covers \App\Enums\ArticleType
+ * @covers \App\Enums\Enum
  *
  * @internal
  */
