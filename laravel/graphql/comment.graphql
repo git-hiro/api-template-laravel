@@ -1,3 +1,7 @@
+extend type Query {
+    comment(id: ID): Comment! @field(resolver: "App\\Http\\GraphQL\\CommentGQL@comment_resolver")
+}
+
 type Comment {
     id: ID!
     user: User

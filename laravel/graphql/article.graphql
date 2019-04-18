@@ -1,3 +1,8 @@
+extend type Query {
+    articles: [Article!]! @field(resolver: "App\\Http\\GraphQL\\ArticleGQL@articles_resolver")
+    article(id: ID): Article! @field(resolver: "App\\Http\\GraphQL\\ArticleGQL@article_resolver")
+}
+
 type Article {
     id: ID!
     user: User
