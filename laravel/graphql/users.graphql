@@ -4,4 +4,13 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 "A date string with format `Y-m-d`, e.g. `2011-05-23`."
 scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 
-#import ./users.graphql
+type Query {
+    users: [User!]! @field(resolver: "App\\Http\\GraphQL\\UserGQL@users_resolver")
+    user(id: ID): User! @field(resolver: "App\\Http\\GraphQL\\UserGQL@user_resolver")
+}
+
+type User {
+    id: ID!
+    name: String!
+    email: String!
+}

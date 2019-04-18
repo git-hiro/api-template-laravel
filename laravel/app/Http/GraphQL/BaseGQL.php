@@ -1,6 +1,6 @@
 <?php
 
-namespace App\GraphQL;
+namespace App\Http\GraphQL;
 
 abstract class BaseGQL
 {
@@ -9,7 +9,7 @@ abstract class BaseGQL
     if (property_exists($this, $method)) {
       $property = $this->{$method};
 
-      return $property($args);
+      return $property(...$args);
     }
   }
 }
