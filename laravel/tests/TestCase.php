@@ -12,7 +12,6 @@ abstract class TestCase extends BaseTestCase
   {
     parent::setUp();
 
-    \Log::info('');
-    \Log::info('--- ' . $this->getName() . ' ---');
+    \Log::info("\n--- " . $this->getName() . ' ---');
   }
 }
