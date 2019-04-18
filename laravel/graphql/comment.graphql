@@ -1,0 +1,5 @@
+type Comment {
+    id: ID!
+    user: User
+    article: Article
+}
