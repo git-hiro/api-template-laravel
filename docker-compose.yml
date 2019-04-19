@@ -19,6 +19,7 @@ services:
       dockerfile: ./tools/fpm/Dockerfile
     volumes:
       - ${BASE_DIR}:/var/www
+      - ./tools/fpm/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini:ro
     networks:
       - frontend
       - backend
