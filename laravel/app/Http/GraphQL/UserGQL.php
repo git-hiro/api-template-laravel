@@ -9,6 +9,10 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class UserGQL extends BaseGQL
 {
+  protected const RELS = [
+    'articles',
+    'comments',
+  ];
   protected $case;
 
   public function __construct(
@@ -26,6 +30,8 @@ class UserGQL extends BaseGQL
 
   public function user_resolver($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
   {
-    return $this->get_user_case($args['id']);
+    $rels = Utils::getRelations($resolveInfo, 'user', self::RELS);
+
+    return $this->get_user_case($args['id'], $rels);
   }
 }
