@@ -13,6 +13,7 @@ class UserGQL extends BaseGQL
     'articles',
     'comments',
   ];
+
   protected $case;
 
   public function __construct(
@@ -25,7 +26,9 @@ class UserGQL extends BaseGQL
 
   public function users_resolver($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
   {
-    return $this->get_user_list_case();
+    $rels = Utils::getRelations($resolveInfo, 'users', self::RELS);
+
+    return $this->get_user_list_case($rels);
   }
 
   public function user_resolver($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)

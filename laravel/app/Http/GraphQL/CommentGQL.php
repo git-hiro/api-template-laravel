@@ -8,6 +8,11 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class CommentGQL extends BaseGQL
 {
+  protected const RELS = [
+    'user',
+    'article',
+  ];
+
   protected $case;
 
   public function __construct(
@@ -18,6 +23,8 @@ class CommentGQL extends BaseGQL
 
   public function comment_resolver($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
   {
-    return $this->get_comment_case($args['id']);
+    $rels = Utils::getRelations($resolveInfo, 'comment', self::RELS);
+
+    return $this->get_comment_case($args['id'], $rels);
   }
 }
