@@ -1,9 +1,28 @@
-extend type Query {
-    comment(id: ID): Comment! @field(resolver: "App\\Http\\GraphQL\\CommentGQL@comment_resolver")
+extend type Query @group(namespace: "App\\Http\\GraphQL") {
+    comment(id: ID): Comment! @field(resolver: "CommentGQL@comment_resolver")
+}
+
+extend type Mutation @group(namespace: "App\\Http\\GraphQL") {
+    update_comment(id: ID!, comment: UpdateCommentInput!): UpdateComment! @field(resolver: "CommentGQL@updateCommentResolver")
+    delete_comment(id: ID!): DeleteComment! @field(resolver: "CommentGQL@deleteCommentResolver")
 }
 
 type Comment {
     id: ID!
+    content: String!
+
     user: User
     article: Article
+}
+
+input UpdateCommentInput {
+    content: String!
+}
+
+type UpdateComment {
+    comment: Comment!
+}
+
+type DeleteComment {
+    ok: Boolean!
 }

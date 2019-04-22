@@ -2,6 +2,7 @@
 
 namespace App\Http\GraphQL;
 
+use App\Domains\Translators\UserTranslator;
 use App\UseCases\Users\CreateUserCase;
 use App\UseCases\Users\DeleteUserCase;
 use App\UseCases\Users\GetUserCase;
@@ -17,7 +18,11 @@ class UserGQL extends BaseGQL
     'comments',
   ];
 
-  protected $case;
+  protected $get_user_list_case;
+  protected $get_user_case;
+  protected $create_user_case;
+  protected $update_user_case;
+  protected $delete_user_case;
 
   public function __construct(
     GetUserListCase $get_user_list_case,
@@ -50,7 +55,7 @@ class UserGQL extends BaseGQL
   public function createUserResolver($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
   {
     $executor_id = Str::uuid();
-    $user_req = UserTranslator::ofArray($data['user']);
+    $user_req = UserTranslator::ofArray($args['user']);
 
     return $this->create_user_case($user_req, $executor_id);
   }
@@ -58,7 +63,7 @@ class UserGQL extends BaseGQL
   public function updateUserResolver($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
   {
     $executor_id = Str::uuid();
-    $user_req = UserTranslator::ofArray($data['user']);
+    $user_req = UserTranslator::ofArray($args['user']);
 
     return $this->update_user_case($args['id'], $user_req, $executor_id);
   }

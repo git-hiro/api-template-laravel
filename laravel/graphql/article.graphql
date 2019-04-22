@@ -1,10 +1,51 @@
-extend type Query {
-    articles: [Article!]! @field(resolver: "App\\Http\\GraphQL\\ArticleGQL@articles_resolver")
-    article(id: ID): Article! @field(resolver: "App\\Http\\GraphQL\\ArticleGQL@article_resolver")
+extend type Query @group(namespace: "App\\Http\\GraphQL") {
+    articles: [Article!]! @field(resolver: "ArticleGQL@articlesResolver")
+    article(id: ID): Article! @field(resolver: "ArticleGQL@articleResolver")
+}
+
+extend type Mutation @group(namespace: "App\\Http\\GraphQL") {
+    create_article(article: CreateArticleInput!): CreateArticle! @field(resolver: "ArticleGQL@createArticleResolver")
+    update_article(id: ID!, article: UpdateArticleInput!): UpdateArticle! @field(resolver: "ArticleGQL@updateArticleResolver")
+    delete_article(id: ID!): DeleteArticle! @field(resolver: "ArticleGQL@deleteArticleResolver")
+
+    create_article_comment(article_id: ID!, comment: CreateArticleCommentInput!): CreateArticleComment! @field(resolver: "ArticleGQL@createArticleCommentResolver")
 }
 
 type Article {
     id: ID!
-    user: User
+    subject: String!
+    content: String!
+
+    user: User!
     comments: [Comment!]!
+}
+
+input CreateArticleInput {
+    subject: String!
+    content: String!
+}
+
+type CreateArticle {
+    article: Article!
+}
+
+input UpdateArticleInput {
+    subject: String!
+    content: String!
+}
+
+type UpdateArticle {
+    article: Article!
+}
+
+type DeleteArticle {
+    ok: Boolean!
+}
+
+input CreateArticleCommentInput {
+    content: String!
+}
+
+type CreateArticleComment {
+    comment: Comment!
 }
