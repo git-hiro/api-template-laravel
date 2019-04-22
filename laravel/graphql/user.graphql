@@ -1,6 +1,12 @@
-extend type Query {
-    users: [User!]! @field(resolver: "App\\Http\\GraphQL\\UserGQL@users_resolver")
-    user(id: ID): User! @field(resolver: "App\\Http\\GraphQL\\UserGQL@user_resolver")
+extend type Query @group(namespace: "App\\Http\\GraphQL") {
+    users: [User!]! @field(resolver: "UserGQL@usersResolver")
+    user(id: ID!): User! @field(resolver: "UserGQL@userResolver")
+}
+
+extend type Mutation @group(namespace: "App\\Http\\GraphQL") {
+    create_user(user: CreateUserInput!): CreateUser! @field(resolver: "UserGQL@createUserResolver")
+    update_user(id: ID!, user: UpdateUserInput!): UpdateUser! @field(resolver: "UserGQL@updateUserResolver")
+    delete_user(id: ID!): DeleteUser! @field(resolver: "UserGQL@deleteUserResolver")
 }
 
 type User {
@@ -10,4 +16,28 @@ type User {
 
     articles: [Article!]!
     comments: [Comment!]!
+}
+
+input CreateUserInput {
+    name: String!
+    email: String!
+    password: String!
+}
+
+type CreateUser {
+    user: User!
+}
+
+input UpdateUserInput {
+    name: String!
+    email: String!
+    password: String
+}
+
+type UpdateUser {
+    user: User!
+}
+
+type DeleteUser {
+    ok: Boolean!
 }
