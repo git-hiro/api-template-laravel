@@ -214,7 +214,7 @@ class ArticleController extends Controller
    *   ),
    *   @OA\RequestBody(description="",
    *     @OA\JsonContent(
-   *       ref="#/components/schemas/CreateCommentRequest",
+   *       ref="#/components/schemas/CreateArticleCommentRequest",
    *     )
    *   ),
    *   @OA\Response(response="201", description="",
