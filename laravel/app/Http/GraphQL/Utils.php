@@ -9,9 +9,7 @@ class Utils
   public static function getRelations(ResolveInfo $info, string $root, array $keys): array
   {
     $fields = ResolveInfoUtils::getFields($info);
-    \Log::debug($fields);
     $field = DictUtils::getValue($fields, $root);
-    \Log::debug($field);
 
     return array_filter($keys, function ($value) use ($field) {
       return DictUtils::hasKeys($field, $value);

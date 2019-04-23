@@ -3,8 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class HttpLogger
 {
@@ -42,7 +42,7 @@ class HttpLogger
 
     $response = $next($request);
 
-    if ($response instanceof JsonResponse) {
+    if ($response instanceof Response) {
       $content = null;
 
       switch ($response->headers->get('Content-Type')) {
@@ -57,6 +57,11 @@ class HttpLogger
       \Log::info('Response', [
         'status'  => $response->status(),
         'content' => $content,
+        'headers' => [
+          'content-type'      => $response->headers->get('Content-Type'),
+          'content-length'    => $response->headers->get('Content-Length'),
+          'transfer-encoding' => $response->headers->get('Transfer-Encoding'),
+        ],
       ]);
     }
 
