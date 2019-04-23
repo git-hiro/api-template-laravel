@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\ControllerUnit\CommentController;
+namespace Tests\ControllerUnit\ArticleController;
 
 use App\Domains\Comment;
 use App\Repositories\ICommentRepository;
@@ -8,7 +8,7 @@ use Tests\ControllerUnit\ControllerTestCase;
 
 /**
  * @covers \App\Domains\Translators\CommentTranslator
- * @covers \App\Http\Controllers\V1\CommentController
+ * @covers \App\Http\Controllers\V1\ArticleController
  * @covers \App\Http\Requests\Comment\StoreCommentRequest
  * @covers \App\UseCases\Comments\CreateCommentCase
  *
