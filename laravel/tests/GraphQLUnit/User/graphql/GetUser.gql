@@ -1,0 +1,16 @@
+query($id: UUID!) {
+    user(id: $id) {
+        id
+        email
+        name
+        articles {
+            id
+            subject
+            content
+        }
+        comments {
+            id
+            content
+        }
+    }
+}
