@@ -9,8 +9,8 @@ use Tests\ControllerUnit\ControllerTestCase;
 /**
  * @covers \App\Domains\Translators\CommentTranslator
  * @covers \App\Http\Controllers\V1\ArticleController
- * @covers \App\Http\Requests\Comment\StoreCommentRequest
- * @covers \App\UseCases\Comments\CreateCommentCase
+ * @covers \App\Http\Requests\Article\CreateArticleCommentRequest
+ * @covers \App\UseCases\Articles\CreateArticleCommentCase
  *
  * @internal
  */
@@ -46,7 +46,7 @@ class CreateArticleCommentTest extends ControllerTestCase
       ]),
       );
 
-    $response = $this->json('POST', "/api/v1/articles/${article_id}/comments", [
+    $response = $this->postJson("/api/v1/articles/${article_id}/comments", [
       'comment' => [
         'content' => 'test_content',
       ],

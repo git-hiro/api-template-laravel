@@ -43,7 +43,7 @@ class UpdateUserTest extends ControllerTestCase
       ]),
       );
 
-    $response = $this->json('PUT', "/api/v1/users/${id}", [
+    $response = $this->putJson("/api/v1/users/${id}", [
       'user' => [
         'name'     => 'test_name',
         'email'    => 'test_email@test.localhost',

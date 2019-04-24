@@ -46,7 +46,7 @@ class UpdateCommentTest extends ControllerTestCase
       ]),
       );
 
-    $response = $this->json('PUT', "/api/v1/comments/${id}", [
+    $response = $this->putJson("/api/v1/comments/${id}", [
       'comment' => [
         'content' => 'test_content',
       ],

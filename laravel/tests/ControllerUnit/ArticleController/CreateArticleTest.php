@@ -44,7 +44,7 @@ class CreateArticleTest extends ControllerTestCase
       ]),
       );
 
-    $response = $this->json('POST', '/api/v1/articles', [
+    $response = $this->postJson('/api/v1/articles', [
       'article' => [
         'subject' => 'test_subject',
         'content' => 'test_content',

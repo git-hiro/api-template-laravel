@@ -9,7 +9,7 @@ use Tests\ControllerUnit\ControllerTestCase;
 /**
  * @covers \App\Domains\Translators\UserTranslator
  * @covers \App\Http\Controllers\V1\UserController
- * @covers \App\Http\Requests\User\StoreUserRequest
+ * @covers \App\Http\Requests\User\CreateUserRequest
  * @covers \App\UseCases\Users\CreateUserCase
  *
  * @internal
@@ -43,7 +43,7 @@ class CreateUserTest extends ControllerTestCase
       ]),
       );
 
-    $response = $this->json('POST', '/api/v1/users', [
+    $response = $this->postJson('/api/v1/users', [
       'user' => [
         'name'     => 'test_name',
         'email'    => 'test_email@test.localhost',
