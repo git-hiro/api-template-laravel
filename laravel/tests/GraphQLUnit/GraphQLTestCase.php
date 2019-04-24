@@ -29,7 +29,7 @@ abstract class GraphQLTestCase extends TestCase
 
   public function graphql(string $query, array $variables = [])
   {
-    return $this->post('/graphql', [
+    return $this->postJson('/graphql', [
       'query'     => $query,
       'variables' => $variables,
     ]);

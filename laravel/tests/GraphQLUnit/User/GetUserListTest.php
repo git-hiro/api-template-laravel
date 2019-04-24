@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\GraphQLUnit\UserGraphQL;
+namespace Tests\GraphQLUnit\User;
 
 use App\Domains\Article;
 use App\Domains\Comment;

@@ -9,6 +9,7 @@ use App\UseCases\Users\GetUserCase;
 use App\UseCases\Users\GetUserListCase;
 use App\UseCases\Users\UpdateUserCase;
 use GraphQL\Type\Definition\ResolveInfo;
+use Illuminate\Support\Str;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class UserGQL extends BaseGQL
@@ -57,7 +58,9 @@ class UserGQL extends BaseGQL
     $executor_id = Str::uuid();
     $user_req = UserTranslator::ofArray($args['user']);
 
-    return $this->create_user_case($user_req, $executor_id);
+    $user = $this->create_user_case($user_req, $executor_id);
+
+    return ['user' => $user];
   }
 
   public function updateUserResolver($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
@@ -65,13 +68,17 @@ class UserGQL extends BaseGQL
     $executor_id = Str::uuid();
     $user_req = UserTranslator::ofArray($args['user']);
 
-    return $this->update_user_case($args['id'], $user_req, $executor_id);
+    $user = $this->update_user_case($args['id'], $user_req, $executor_id);
+
+    return ['user' => $user];
   }
 
-  public function deleteUserResolver($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): boolean
+  public function deleteUserResolver($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
   {
     $executor_id = Str::uuid();
 
     $this->delete_user_case($args['id'], $executor_id);
+
+    return ['ok' => true];
   }
 }

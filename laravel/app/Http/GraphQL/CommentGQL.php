@@ -7,6 +7,7 @@ use App\UseCases\Comments\DeleteCommentCase;
 use App\UseCases\Comments\GetCommentCase;
 use App\UseCases\Comments\UpdateCommentCase;
 use GraphQL\Type\Definition\ResolveInfo;
+use Illuminate\Support\Str;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class CommentGQL extends BaseGQL

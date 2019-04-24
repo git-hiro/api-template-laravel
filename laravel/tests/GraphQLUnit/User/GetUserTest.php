@@ -11,7 +11,6 @@ use Tests\GraphQLUnit\GraphQLTestCase;
 /**
  * @covers \App\Domains\Translators\UserTranslator
  * @covers \App\Http\GraphQL\UserGQL
- * @covers \App\Http\Requests\User\GetUserRequest
  * @covers \App\UseCases\Users\GetUserCase
  *
  * @internal
@@ -67,34 +66,39 @@ class GetUserTest extends GraphQLTestCase
       ]),
       );
 
-    $response = $this->get("/api/v1/users/${id}");
+    $query = $this->loadGql('/User/graphql/GetUser.gql');
+    $response = $this->graphql($query, [
+      'id' => $id,
+    ]);
     $response
       ->assertStatus(200)
       ->assertJson([
-        'user' => [
-          'id'       => $id,
-          'name'     => 'test_name_01',
-          'email'    => 'test_name_01@test.localhost',
-          'articles' => [
-            [
-              'id'      => '64574ae7-a467-445a-ad54-d1b6c4de4d9a',
-              'subject' => 'test_subject_01',
-              'content' => 'test_content_01',
+        'data' => [
+          'user' => [
+            'id'       => $id,
+            'name'     => 'test_name_01',
+            'email'    => 'test_name_01@test.localhost',
+            'articles' => [
+              [
+                'id'      => '64574ae7-a467-445a-ad54-d1b6c4de4d9a',
+                'subject' => 'test_subject_01',
+                'content' => 'test_content_01',
+              ],
+              [
+                'id'      => 'b22848a4-ba8e-464e-9373-7407c5b9ed83',
+                'subject' => 'test_subject_02',
+                'content' => 'test_content_02',
+              ],
             ],
-            [
-              'id'      => 'b22848a4-ba8e-464e-9373-7407c5b9ed83',
-              'subject' => 'test_subject_02',
-              'content' => 'test_content_02',
-            ],
-          ],
-          'comments' => [
-            [
-              'id'      => '8e83896e-e4e7-4172-9544-550b8ec6e642',
-              'content' => 'test_content_01',
-            ],
-            [
-              'id'      => '45654e38-d95b-4d82-8656-82a4e3e09d80',
-              'content' => 'test_content_02',
+            'comments' => [
+              [
+                'id'      => '8e83896e-e4e7-4172-9544-550b8ec6e642',
+                'content' => 'test_content_01',
+              ],
+              [
+                'id'      => '45654e38-d95b-4d82-8656-82a4e3e09d80',
+                'content' => 'test_content_02',
+              ],
             ],
           ],
         ],

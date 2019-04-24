@@ -25,7 +25,7 @@ input CreateUserInput {
 }
 
 type CreateUser {
-    user: User!
+    user: User
 }
 
 input UpdateUserInput {
@@ -35,7 +35,7 @@ input UpdateUserInput {
 }
 
 type UpdateUser {
-    user: User!
+    user: User
 }
 
 type DeleteUser {

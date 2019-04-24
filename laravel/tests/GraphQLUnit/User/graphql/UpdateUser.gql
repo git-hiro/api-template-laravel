@@ -1,0 +1,9 @@
+mutation($id: UUID!, $user: UpdateUserInput!) {
+    update_user(id: $id, user: $user) {
+        user {
+            id
+            email
+            name
+        }
+    }
+}

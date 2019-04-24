@@ -11,6 +11,7 @@ use App\UseCases\Articles\GetArticleCase;
 use App\UseCases\Articles\GetArticleListCase;
 use App\UseCases\Articles\UpdateArticleCase;
 use GraphQL\Type\Definition\ResolveInfo;
+use Illuminate\Support\Str;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class ArticleGQL extends BaseGQL
