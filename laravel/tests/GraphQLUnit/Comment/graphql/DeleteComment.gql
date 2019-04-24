@@ -1,0 +1,5 @@
+mutation($id: UUID!) {
+    delete_comment(id: $id) {
+        ok
+    }
+}

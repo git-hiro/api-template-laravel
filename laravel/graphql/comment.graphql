@@ -9,6 +9,8 @@ extend type Mutation @group(namespace: "App\\Http\\GraphQL") {
 
 type Comment {
     id: UUID!
+    user_id: UUID!
+    article_id: UUID!
     content: String!
 
     user: User
@@ -20,7 +22,7 @@ input UpdateCommentInput {
 }
 
 type UpdateComment {
-    comment: Comment!
+    comment: Comment
 }
 
 type DeleteComment {

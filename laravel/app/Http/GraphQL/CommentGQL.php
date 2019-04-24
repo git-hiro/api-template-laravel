@@ -43,13 +43,17 @@ class CommentGQL extends BaseGQL
     $executor_id = Str::uuid();
     $comment_req = CommentTranslator::ofArray($args['comment']);
 
-    return $this->update_comment_case($args['id'], $comment_req, $executor_id);
+    $comment = $this->update_comment_case($args['id'], $comment_req, $executor_id);
+
+    return ['comment' => $comment];
   }
 
   public function deleteCommentResolver($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
   {
     $executor_id = Str::uuid();
 
-    return $this->delete_comment_case($args['id'], $executor_id);
+    $this->delete_comment_case($args['id'], $executor_id);
+
+    return ['ok' => true];
   }
 }

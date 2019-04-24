@@ -1,0 +1,19 @@
+query($id: UUID!) {
+    comment(id: $id) {
+        id
+        user_id
+        article_id
+        content
+        user {
+            id
+            email
+            name
+        }
+        article {
+            id
+            user_id
+            subject
+            content
+        }
+    }
+}

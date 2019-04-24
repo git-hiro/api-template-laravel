@@ -1,0 +1,10 @@
+mutation($id: UUID!, $comment: UpdateCommentInput!) {
+    update_comment(id: $id, comment: $comment) {
+        comment {
+            id
+            user_id
+            article_id
+            content
+        }
+    }
+}
