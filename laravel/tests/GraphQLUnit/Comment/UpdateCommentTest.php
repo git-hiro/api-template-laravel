@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\ControllerUnit\CommentController;
+namespace Tests\GraphQLUnit\CommentGraphQL;
 
 use App\Domains\Comment;
 use App\Repositories\ICommentRepository;
