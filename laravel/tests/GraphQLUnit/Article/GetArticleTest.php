@@ -39,7 +39,7 @@ class GetArticleTest extends GraphQLTestCase
       ->andReturn(
       new Article([
         'id'      => $id,
-        'user_id' => '90d16911-4e22-4dd2-8d8e-bc5bfb2bddd6',
+        'user_id' => 'e8d239d0-0863-4a1b-bb23-dbc4bcd3abd8',
         'subject' => 'test_subject',
         'content' => 'test_content',
         'user'    => new User([
@@ -71,7 +71,7 @@ class GetArticleTest extends GraphQLTestCase
         'data' => [
           'article' => [
             'id'      => $id,
-            'user_id' => '90d16911-4e22-4dd2-8d8e-bc5bfb2bddd6',
+            'user_id' => 'e8d239d0-0863-4a1b-bb23-dbc4bcd3abd8',
             'subject' => 'test_subject',
             'content' => 'test_content',
             'user'    => [
