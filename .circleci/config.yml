@@ -55,7 +55,7 @@ jobs:
           name: phpunit
           command: |
             cd laravel
-            phpdbg -qrr ./vendor/bin/phpunit
+            phpdbg -qrr ./vendor/bin/phpunit -d memory_limit=512M
 
       - store_artifacts:
           path: ./phpunit/html
