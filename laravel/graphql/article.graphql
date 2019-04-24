@@ -13,6 +13,7 @@ extend type Mutation @group(namespace: "App\\Http\\GraphQL") {
 
 type Article {
     id: UUID!
+    user_id: UUID!
     subject: String!
     content: String!
 
@@ -26,7 +27,7 @@ input CreateArticleInput {
 }
 
 type CreateArticle {
-    article: Article!
+    article: Article
 }
 
 input UpdateArticleInput {
@@ -35,7 +36,7 @@ input UpdateArticleInput {
 }
 
 type UpdateArticle {
-    article: Article!
+    article: Article
 }
 
 type DeleteArticle {
@@ -47,5 +48,5 @@ input CreateArticleCommentInput {
 }
 
 type CreateArticleComment {
-    comment: Comment!
+    comment: Comment
 }

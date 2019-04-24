@@ -1,0 +1,10 @@
+mutation($article: CreateArticleInput!) {
+    create_article(article: $article) {
+        article {
+            id
+            user_id
+            subject
+            content
+        }
+    }
+}

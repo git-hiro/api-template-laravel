@@ -1,0 +1,10 @@
+mutation($article_id: UUID!, $comment: CreateArticleCommentInput!) {
+    create_article_comment(article_id: $article_id, comment: $comment) {
+        comment {
+            id
+            user_id
+            article_id
+            content
+        }
+    }
+}

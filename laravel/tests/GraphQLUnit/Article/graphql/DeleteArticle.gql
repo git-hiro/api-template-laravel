@@ -1,0 +1,5 @@
+mutation($id: UUID!) {
+    delete_article(id: $id) {
+        ok
+    }
+}

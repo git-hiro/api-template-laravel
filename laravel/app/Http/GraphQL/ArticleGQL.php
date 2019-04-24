@@ -63,7 +63,9 @@ class ArticleGQL extends BaseGQL
     $executor_id = Str::uuid();
     $article_req = ArticleTranslator::ofArray($args['article']);
 
-    return $this->create_article_case($article_req, $executor_id);
+    $article = $this->create_article_case($article_req, $executor_id);
+
+    return ['article' => $article];
   }
 
   public function updateArticleResolver($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
@@ -71,14 +73,18 @@ class ArticleGQL extends BaseGQL
     $executor_id = Str::uuid();
     $article_req = ArticleTranslator::ofArray($args['article']);
 
-    return $this->update_article_case($args['id'], $article_req, $executor_id);
+    $article = $this->update_article_case($args['id'], $article_req, $executor_id);
+
+    return ['article' => $article];
   }
 
   public function deleteArticleResolver($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
   {
     $executor_id = Str::uuid();
 
-    return $this->delete_article_case($args['id'], $executor_id);
+    $this->delete_article_case($args['id'], $executor_id);
+
+    return ['ok' => true];
   }
 
   public function createArticleCommentResolver($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
@@ -86,6 +92,8 @@ class ArticleGQL extends BaseGQL
     $executor_id = Str::uuid();
     $comment_req = CommentTranslator::ofArray($args['comment']);
 
-    return $this->create_article_comment_case($args['article_id'], $comment_req);
+    $comment = $this->create_article_comment_case($args['article_id'], $comment_req, $executor_id);
+
+    return ['comment' => $comment];
   }
 }

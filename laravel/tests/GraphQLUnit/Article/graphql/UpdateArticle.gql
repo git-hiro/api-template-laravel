@@ -1,0 +1,10 @@
+mutation($id: UUID!, $article: UpdateArticleInput!) {
+    update_article(id: $id, article: $article) {
+        article {
+            id
+            user_id
+            subject
+            content
+        }
+    }
+}

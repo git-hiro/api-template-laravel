@@ -1,0 +1,17 @@
+query {
+    articles {
+        id
+        user_id
+        subject
+        content
+        user {
+            id
+            email
+            name
+        }
+        comments {
+            id
+            content
+        }
+    }
+}
