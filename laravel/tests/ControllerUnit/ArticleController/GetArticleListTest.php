@@ -34,7 +34,7 @@ class GetArticleListTest extends ControllerTestCase
   {
     $id = '60df8adf-8f54-4923-9720-e224a57882a9';
 
-    $this->article_repository_mock->shouldReceive('getItem')
+    $this->article_repository_mock->shouldReceive('getList')
       ->andReturn(new Collection([
         new Article([
           'id'      => 'cf221545-c62a-44f5-a882-3b90009663db',
