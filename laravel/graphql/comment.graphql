@@ -1,14 +1,14 @@
 extend type Query @group(namespace: "App\\Http\\GraphQL") {
-    comment(id: ID): Comment! @field(resolver: "CommentGQL@comment_resolver")
+    comment(id: UUID): Comment! @field(resolver: "CommentGQL@comment_resolver")
 }
 
 extend type Mutation @group(namespace: "App\\Http\\GraphQL") {
-    update_comment(id: ID!, comment: UpdateCommentInput!): UpdateComment! @field(resolver: "CommentGQL@updateCommentResolver")
-    delete_comment(id: ID!): DeleteComment! @field(resolver: "CommentGQL@deleteCommentResolver")
+    update_comment(id: UUID!, comment: UpdateCommentInput!): UpdateComment! @field(resolver: "CommentGQL@updateCommentResolver")
+    delete_comment(id: UUID!): DeleteComment! @field(resolver: "CommentGQL@deleteCommentResolver")
 }
 
 type Comment {
-    id: ID!
+    id: UUID!
     content: String!
 
     user: User
