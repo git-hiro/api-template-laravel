@@ -38,6 +38,7 @@ class DeleteUserTest extends GraphQLTestCase
     $response = $this->graphql($query, [
       'id' => $id,
     ]);
+
     $response
       ->assertStatus(200)
       ->assertJson([

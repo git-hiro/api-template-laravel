@@ -74,6 +74,7 @@ class GetUserListTest extends GraphQLTestCase
 
     $query = $this->loadGql('/User/graphql/GetUserList.gql');
     $response = $this->graphql($query);
+
     $response
       ->assertStatus(200)
       ->assertJson([

@@ -50,6 +50,7 @@ class CreateUserTest extends GraphQLTestCase
         'password' => 'test_password',
       ],
     ]);
+
     $response
       ->assertStatus(200)
       ->assertJson([
