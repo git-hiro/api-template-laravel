@@ -16,6 +16,9 @@
         <testsuite name="EnumUnit">
             <directory suffix="Test.php">./tests/EnumUnit</directory>
         </testsuite>
+        <testsuite name="GraphQLUnit">
+            <directory suffix="Test.php">./tests/GraphQLUnit</directory>
+        </testsuite>
         <testsuite name="RepositoryUnit">
             <directory suffix="Test.php">./tests/RepositoryUnit</directory>
         </testsuite>
