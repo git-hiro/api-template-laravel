@@ -51,7 +51,7 @@ class ArticleTranslator extends BaseTranslator
       return null;
     }
 
-    return ArticleTranslator::new([
+    return self::new([
       'subject' => self::getProperty('subject', $array),
       'content' => self::getProperty('content', $array),
     ]);

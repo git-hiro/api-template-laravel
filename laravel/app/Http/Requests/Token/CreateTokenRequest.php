@@ -9,8 +9,8 @@ use Illuminate\Foundation\Http\FormRequest;
  *   title="CreateTokenRequest",
  *   type="object",
  *   required={"email", "password"},
- *   @OA\Property(property="email", type="string", format="email"),
- *   @OA\Property(property="password", type="string"),
+ *   @OA\Property(property="email", type="string", format="email", example="test_user_01@test.localhost"),
+ *   @OA\Property(property="password", type="string", example="password"),
  * )
  */
 class CreateTokenRequest extends FormRequest

@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
@@ -57,6 +58,12 @@ class Handler extends ExceptionHandler
       return response()->json([
         'errors' => $exception->getMessage(),
       ], $exception->getStatusCode());
+    }
+
+    if ($exception instanceof AuthenticationException) {
+      return response()->json([
+        'error' => $exception->getMessage(),
+      ], Response::HTTP_UNAUTHORIZED);
     }
 
     return response('', Response::HTTP_INTERNAL_SERVER_ERROR);

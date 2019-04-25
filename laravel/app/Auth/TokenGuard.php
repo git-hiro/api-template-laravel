@@ -20,6 +20,7 @@ class TokenGuard implements Guard
   ) {
     $this->token_repository = $token_repository;
     $this->request = $request;
+    $this->user = null;
   }
 
   public function check()
@@ -41,10 +42,9 @@ class TokenGuard implements Guard
     $auth = $this->getAuthentication();
     if ($auth) {
       $token = $this->token_repository->getItem($auth, ['user']);
-      if (!$token || !$token->user) {
-        return false;
+      if ($token && $token->user) {
+        $this->user = $token->user;
       }
-      $this->user = $token->user;
     }
 
     return $this->user;
@@ -52,7 +52,7 @@ class TokenGuard implements Guard
 
   public function id()
   {
-    if ($this->user()) {
+    if (!is_null($this->user())) {
       return $this->user()->getAuthIdentifier();
     }
 

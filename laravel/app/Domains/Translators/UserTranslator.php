@@ -53,8 +53,7 @@ class UserTranslator extends BaseTranslator
       return null;
     }
 
-    return new User([
-      'id'       => self::getProperty('id', $array),
+    return self::new([
       'name'     => self::getProperty('name', $array),
       'email'    => self::getProperty('email', $array),
       'password' => self::getProperty('password', $array),

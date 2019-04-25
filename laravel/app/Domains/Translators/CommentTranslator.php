@@ -49,7 +49,7 @@ class CommentTranslator extends BaseTranslator
       return null;
     }
 
-    return new Comment([
+    return self::new([
       'content' => self::getProperty('content', $array),
     ]);
   }
