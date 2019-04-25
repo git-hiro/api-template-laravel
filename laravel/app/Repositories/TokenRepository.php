@@ -5,7 +5,6 @@ namespace App\Repositories;
 use App\Domains\Token;
 use App\Domains\Translators\TokenTranslator;
 use App\Repositories\Datasources\DB\TokenModel;
-use Illuminate\Support\Collection;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 interface ITokenRepository
@@ -21,19 +20,9 @@ interface ITokenRepository
 
 class TokenRepository implements ITokenRepository
 {
-  public function getList(array $relations = []): Collection
+  public function getItem(string $value, array $relations = []): ?Token
   {
-    $query = TokenModel::query()->with($relations);
-    $models = $query->get();
-
-    return collect($models)->map(function ($model) use ($relations) {
-      return TokenTranslator::ofModel($model, $relations);
-    });
-  }
-
-  public function getItem(string $value, array $relations = [], bool $with_deleted = false): ?Token
-  {
-    $model = $this->_getModel($value, $relations, $with_deleted);
+    $model = $this->_getModel($value, $relations);
 
     return TokenTranslator::ofModel($model, $relations);
   }
@@ -51,7 +40,7 @@ class TokenRepository implements ITokenRepository
 
   public function update(string $value): Token
   {
-    $model = $this->_getModel($value, [], false);
+    $model = $this->_getModel($value, []);
     if (!$model) {
       throw new NotFoundHttpException($value);
     }
@@ -69,12 +58,9 @@ class TokenRepository implements ITokenRepository
     }
   }
 
-  private function _getModel(string $value, array $relations, bool $with_deleted): ?TokenModel
+  private function _getModel(string $value, array $relations): ?TokenModel
   {
     $query = TokenModel::query()->with($relations);
-    if ($with_deleted) {
-      $query = $query->withTrashed();
-    }
 
     return $query->find($value);
   }
