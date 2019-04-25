@@ -25,6 +25,7 @@ php artisan db:seed
 
 ```sh
 ./vendor/bin/phpunit
+phpdbg -qrr ./vendor/bin/phpunit -d memory_limit=512M
 ```
 
 ### Cache
