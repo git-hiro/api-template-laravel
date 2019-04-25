@@ -15,20 +15,20 @@ class DeleteCommentCase
   /**
    * @var ICommentRepository
    */
-  private $commentRepository;
+  private $comment_repository;
 
   public function __construct(
     MultipleConnection $connection,
-    ICommentRepository $commentRepository
+    ICommentRepository $comment_repository
   ) {
     $this->connection = $connection;
-    $this->commentRepository = $commentRepository;
+    $this->comment_repository = $comment_repository;
   }
 
   public function __invoke(string $id, string $executor_id): void
   {
     $this->connection->transaction(['pgsql'], function () use ($id,  $executor_id) {
-      $this->commentRepository->delete($id, $executor_id);
+      $this->comment_repository->delete($id, $executor_id);
     });
   }
 }

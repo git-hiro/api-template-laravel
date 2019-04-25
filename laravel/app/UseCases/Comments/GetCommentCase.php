@@ -17,20 +17,20 @@ class GetCommentCase
   /**
    * @var ICommentRepository
    */
-  private $commentRepository;
+  private $comment_repository;
 
   public function __construct(
     MultipleConnection $connection,
-    ICommentRepository $commentRepository
+    ICommentRepository $comment_repository
   ) {
     $this->connection = $connection;
-    $this->commentRepository = $commentRepository;
+    $this->comment_repository = $comment_repository;
   }
 
   public function __invoke(string $id, array $relations = []): Comment
   {
     return $this->connection->transaction(['pgsql'], function () use ($id, $relations) {
-      $comment = $this->commentRepository->getItem($id, $relations);
+      $comment = $this->comment_repository->getItem($id, $relations);
       if (!$comment) {
         throw new NotFoundHttpException($id);
       }
