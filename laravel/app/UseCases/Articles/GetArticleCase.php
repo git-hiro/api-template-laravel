@@ -16,20 +16,20 @@ class GetArticleCase
   /**
    * @var IArticleRepository
    */
-  private $articleRepository;
+  private $article_repository;
 
   public function __construct(
     MultipleConnection $connection,
-    IArticleRepository $articleRepository
+    IArticleRepository $article_repository
   ) {
     $this->connection = $connection;
-    $this->articleRepository = $articleRepository;
+    $this->article_repository = $article_repository;
   }
 
   public function __invoke(string $id, array $relations = []): Article
   {
     return $this->connection->transaction(['pgsql'], function () use ($id, $relations) {
-      $article = $this->articleRepository->getItem($id, $relations);
+      $article = $this->article_repository->getItem($id, $relations);
       if (!$article) {
         abort(404);
       }

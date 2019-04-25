@@ -16,20 +16,20 @@ class CreateArticleCommentCase
   /**
    * @var ICommentRepository
    */
-  private $commentRepository;
+  private $comment_repository;
 
   public function __construct(
     MultipleConnection $connection,
-    ICommentRepository $commentRepository
+    ICommentRepository $comment_repository
   ) {
     $this->connection = $connection;
-    $this->commentRepository = $commentRepository;
+    $this->comment_repository = $comment_repository;
   }
 
   public function __invoke(string $article_id, Comment $comment, string $executor_id): Comment
   {
     return $this->connection->transaction(['pgsql'], function () use ($article_id, $comment, $executor_id) {
-      return $this->commentRepository->create($article_id, $comment, $executor_id);
+      return $this->comment_repository->create($article_id, $comment, $executor_id);
     });
   }
 }

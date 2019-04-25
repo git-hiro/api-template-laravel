@@ -16,20 +16,20 @@ class CreateArticleCase
   /**
    * @var IArticleRepository
    */
-  private $articleRepository;
+  private $article_repository;
 
   public function __construct(
     MultipleConnection $connection,
-    IArticleRepository $articleRepository
+    IArticleRepository $article_repository
   ) {
     $this->connection = $connection;
-    $this->articleRepository = $articleRepository;
+    $this->article_repository = $article_repository;
   }
 
   public function __invoke(Article $article, string $executor_id): Article
   {
     return $this->connection->transaction(['pgsql'], function () use ($article, $executor_id) {
-      return $this->articleRepository->create($article, $executor_id);
+      return $this->article_repository->create($article, $executor_id);
     });
   }
 }
