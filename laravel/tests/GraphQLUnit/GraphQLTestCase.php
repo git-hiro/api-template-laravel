@@ -37,9 +37,7 @@ abstract class GraphQLTestCase extends TestCase
 
   public function loadGql(string $path)
   {
-    $real_path = base_path() . '/tests/GraphQLUnit' . $path;
-
-    return file_get_contents($real_path);
+    return \File::get('tests/GraphQLUnit' . $path);
   }
 
   protected function addMock(string $class): MockInterface
