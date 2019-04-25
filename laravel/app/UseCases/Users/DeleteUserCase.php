@@ -15,20 +15,20 @@ class DeleteUserCase
   /**
    * @var IUserRepository
    */
-  private $userRepository;
+  private $user_repository;
 
   public function __construct(
     MultipleConnection $connection,
-    IUserRepository $userRepository
+    IUserRepository $user_repository
   ) {
     $this->connection = $connection;
-    $this->userRepository = $userRepository;
+    $this->user_repository = $user_repository;
   }
 
   public function __invoke(string $id, string $executor_id): void
   {
     $this->connection->transaction(['pgsql'], function () use ($id,  $executor_id) {
-      $this->userRepository->delete($id, $executor_id);
+      $this->user_repository->delete($id, $executor_id);
     });
   }
 }

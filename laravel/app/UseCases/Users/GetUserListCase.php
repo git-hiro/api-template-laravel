@@ -16,20 +16,20 @@ class GetUserListCase
   /**
    * @var IUserRepository
    */
-  private $userRepository;
+  private $user_repository;
 
   public function __construct(
     MultipleConnection $connection,
-    IUserRepository $userRepository
+    IUserRepository $user_repository
   ) {
     $this->connection = $connection;
-    $this->userRepository = $userRepository;
+    $this->user_repository = $user_repository;
   }
 
   public function __invoke(): Collection
   {
     return $this->connection->transaction(['pgsql'], function () {
-      return $this->userRepository->getList();
+      return $this->user_repository->getList();
     });
   }
 }

@@ -16,20 +16,20 @@ class UpdateUserCase
   /**
    * @var IUserRepository
    */
-  private $userRepository;
+  private $user_repository;
 
   public function __construct(
     MultipleConnection $connection,
-    IUserRepository $userRepository
+    IUserRepository $user_repository
   ) {
     $this->connection = $connection;
-    $this->userRepository = $userRepository;
+    $this->user_repository = $user_repository;
   }
 
   public function __invoke(string $id, User $user, string $executor_id): User
   {
     return $this->connection->transaction(['pgsql'], function () use ($id, $user, $executor_id) {
-      return $this->userRepository->update($id, $user, $executor_id);
+      return $this->user_repository->update($id, $user, $executor_id);
     });
   }
 }
