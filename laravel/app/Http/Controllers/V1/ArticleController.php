@@ -17,7 +17,6 @@ use App\UseCases\Articles\GetArticleCase;
 use App\UseCases\Articles\GetArticleListCase;
 use App\UseCases\Articles\UpdateArticleCase;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Str;
 
 class ArticleController extends Controller
 {
@@ -109,7 +108,7 @@ class ArticleController extends Controller
   {
     $data = $request->validated();
 
-    $executor_id = Str::uuid();
+    $executor_id = \Auth::id();
 
     $article_req = ArticleTranslator::ofArray($data['article']);
     $article = $case($article_req, $executor_id);
@@ -147,7 +146,7 @@ class ArticleController extends Controller
   {
     $data = $request->validated();
 
-    $executor_id = Str::uuid();
+    $executor_id = \Auth::id();
 
     $article_req = ArticleTranslator::ofArray($data['article']);
     $article = $case($data['id'], $article_req, $executor_id);
@@ -173,7 +172,7 @@ class ArticleController extends Controller
   {
     $data = $request->validated();
 
-    $executor_id = Str::uuid();
+    $executor_id = \Auth::id();
 
     $case($data['id'], $executor_id);
 
@@ -235,7 +234,7 @@ class ArticleController extends Controller
   {
     $data = $request->validated();
 
-    $executor_id = Str::uuid();
+    $executor_id = \Auth::id();
 
     $comment_req = CommentTranslator::ofArray($data['comment']);
     $comment = $case($data['id'], $comment_req, $executor_id);

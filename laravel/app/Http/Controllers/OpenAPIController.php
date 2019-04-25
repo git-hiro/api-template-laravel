@@ -16,6 +16,7 @@ namespace App\Http\Controllers;
  */
 
 /**
+ * @OA\Tag(name="tokens", description="")
  * @OA\Tag(name="users", description="")
  * @OA\Tag(name="articles", description="")
  * @OA\Tag(name="comments", description="")

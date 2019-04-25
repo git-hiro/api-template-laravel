@@ -11,7 +11,6 @@ use App\UseCases\Comments\DeleteCommentCase;
 use App\UseCases\Comments\GetCommentCase;
 use App\UseCases\Comments\UpdateCommentCase;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Str;
 
 class CommentController extends Controller
 {
@@ -83,7 +82,7 @@ class CommentController extends Controller
   {
     $data = $request->validated();
 
-    $executor_id = Str::uuid();
+    $executor_id = \Auth::id();
 
     $comment_req = CommentTranslator::ofArray($data['comment']);
     $comment = $case($data['id'], $comment_req, $executor_id);
@@ -109,7 +108,7 @@ class CommentController extends Controller
   {
     $data = $request->validated();
 
-    $executor_id = Str::uuid();
+    $executor_id = \Auth::id();
 
     $case($data['id'], $executor_id);
 

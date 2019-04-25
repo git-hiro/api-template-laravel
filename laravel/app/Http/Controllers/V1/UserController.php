@@ -14,7 +14,6 @@ use App\UseCases\Users\GetUserCase;
 use App\UseCases\Users\GetUserListCase;
 use App\UseCases\Users\UpdateUserCase;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -106,7 +105,7 @@ class UserController extends Controller
   {
     $data = $request->validated();
 
-    $executor_id = Str::uuid();
+    $executor_id = \Auth::id();
 
     $user_req = UserTranslator::ofArray($data['user']);
     $user = $case($user_req, $executor_id);
@@ -144,7 +143,7 @@ class UserController extends Controller
   {
     $data = $request->validated();
 
-    $executor_id = Str::uuid();
+    $executor_id = \Auth::id();
 
     $user_req = UserTranslator::ofArray($data['user']);
     $user = $case($data['id'], $user_req, $executor_id);
@@ -170,7 +169,7 @@ class UserController extends Controller
   {
     $data = $request->validated();
 
-    $executor_id = Str::uuid();
+    $executor_id = \Auth::id();
 
     $case($data['id'], $executor_id);
 

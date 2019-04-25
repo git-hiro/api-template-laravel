@@ -8,7 +8,6 @@ use App\Http\Requests\Token\DeleteTokenRequest;
 use App\UseCases\Tokens\CreateTokenCase;
 use App\UseCases\Tokens\DeleteTokenCase;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
 
 class TokenController extends Controller
 {
@@ -51,9 +50,8 @@ class TokenController extends Controller
    */
   public function destroy(DeleteTokenCase $case, DeleteTokenRequest $request)
   {
-    if (Auth::check()) {
+    if (\Auth::check()) {
       $data = $request->validated();
-      \Log::debug($data);
       $case($data['Authentication']);
     }
 
