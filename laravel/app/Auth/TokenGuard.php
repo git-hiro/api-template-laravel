@@ -55,6 +55,9 @@ class TokenGuard implements Guard
     if ($this->user()) {
       return $this->user()->getAuthIdentifier();
     }
+
+    // Guest Id
+    return 'ffffffff-ffff-ffff-ffff-ffffffffffff';
   }
 
   public function validate(array $credentials = [])
