@@ -44,12 +44,14 @@ class UpdateArticleTest extends ControllerTestCase
       ]),
       );
 
-    $response = $this->putJson("/api/v1/articles/${id}", [
-      'article' => [
-        'subject' => 'test_subject',
-        'content' => 'test_content',
-      ],
-    ]);
+    $response = $this
+      ->acting()
+      ->putJson("/api/v1/articles/${id}", [
+        'article' => [
+          'subject' => 'test_subject',
+          'content' => 'test_content',
+        ],
+      ]);
 
     $response
       ->assertStatus(200)

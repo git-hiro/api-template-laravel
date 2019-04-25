@@ -35,7 +35,9 @@ class DeleteCommentTest extends ControllerTestCase
 
     $this->comment_repository_mock->shouldReceive('delete');
 
-    $response = $this->delete("/api/v1/comments/${id}");
+    $response = $this
+      ->acting()
+      ->delete("/api/v1/comments/${id}");
 
     $response
       ->assertStatus(204);

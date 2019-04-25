@@ -43,13 +43,15 @@ class CreateUserTest extends ControllerTestCase
       ]),
       );
 
-    $response = $this->postJson('/api/v1/users', [
-      'user' => [
-        'name'     => 'test_name',
-        'email'    => 'test_email@test.localhost',
-        'password' => 'test_password',
-      ],
-    ]);
+    $response = $this
+      ->acting()
+      ->postJson('/api/v1/users', [
+        'user' => [
+          'name'     => 'test_name',
+          'email'    => 'test_email@test.localhost',
+          'password' => 'test_password',
+        ],
+      ]);
 
     $response
       ->assertStatus(201)

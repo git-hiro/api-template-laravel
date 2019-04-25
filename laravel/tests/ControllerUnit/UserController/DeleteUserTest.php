@@ -35,7 +35,9 @@ class DeleteUserTest extends ControllerTestCase
 
     $this->user_repository_mock->shouldReceive('delete');
 
-    $response = $this->delete("/api/v1/users/${id}");
+    $response = $this
+      ->acting()
+      ->delete("/api/v1/users/${id}");
 
     $response
       ->assertStatus(204);

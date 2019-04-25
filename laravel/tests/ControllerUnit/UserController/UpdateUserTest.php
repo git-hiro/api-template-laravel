@@ -43,13 +43,15 @@ class UpdateUserTest extends ControllerTestCase
       ]),
       );
 
-    $response = $this->putJson("/api/v1/users/${id}", [
-      'user' => [
-        'name'     => 'test_name',
-        'email'    => 'test_email@test.localhost',
-        'password' => 'test_password',
-      ],
-    ]);
+    $response = $this
+      ->acting()
+      ->putJson("/api/v1/users/${id}", [
+        'user' => [
+          'name'     => 'test_name',
+          'email'    => 'test_email@test.localhost',
+          'password' => 'test_password',
+        ],
+      ]);
 
     $response
       ->assertStatus(200)

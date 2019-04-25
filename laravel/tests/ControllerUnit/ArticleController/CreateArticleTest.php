@@ -44,12 +44,14 @@ class CreateArticleTest extends ControllerTestCase
       ]),
       );
 
-    $response = $this->postJson('/api/v1/articles', [
-      'article' => [
-        'subject' => 'test_subject',
-        'content' => 'test_content',
-      ],
-    ]);
+    $response = $this
+      ->acting()
+      ->postJson('/api/v1/articles', [
+        'article' => [
+          'subject' => 'test_subject',
+          'content' => 'test_content',
+        ],
+      ]);
 
     $response
       ->assertStatus(201)

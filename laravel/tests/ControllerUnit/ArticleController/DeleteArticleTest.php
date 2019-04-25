@@ -35,7 +35,9 @@ class DeleteArticleTest extends ControllerTestCase
 
     $this->article_repository_mock->shouldReceive('delete');
 
-    $response = $this->delete("/api/v1/articles/${id}");
+    $response = $this
+      ->acting()
+      ->delete("/api/v1/articles/${id}");
 
     $response
       ->assertStatus(204);
