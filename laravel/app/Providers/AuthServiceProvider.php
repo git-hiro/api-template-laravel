@@ -2,29 +2,23 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Gate;
+use App\Auth\TokenGuard;
+use App\Repositories\ITokenRepository;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
-    /**
-     * The policy mappings for the application.
-     *
-     * @var array
-     */
-    protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
-    ];
+  protected $policies = [
+  ];
 
-    /**
-     * Register any authentication / authorization services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        $this->registerPolicies();
+  public function boot()
+  {
+    $this->registerPolicies();
 
-        //
-    }
+    $this->app['auth']->extend('token', function ($app, $name, array $config) {
+      $token_repository = $this->app->make(ITokenRepository::class);
+
+      return new TokenGuard($token_repository, $app['request']);
+    });
+  }
 }

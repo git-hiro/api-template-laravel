@@ -22,5 +22,7 @@ class AppServiceProvider extends ServiceProvider
     $this->app->singleton(Repos\IUserRepository::class, Repos\UserRepository::class);
     $this->app->singleton(Repos\IArticleRepository::class, Repos\ArticleRepository::class);
     $this->app->singleton(Repos\ICommentRepository::class, Repos\CommentRepository::class);
+
+    $this->app->singleton(Repos\ITokenRepository::class, Repos\TokenRepository::class);
   }
 }
