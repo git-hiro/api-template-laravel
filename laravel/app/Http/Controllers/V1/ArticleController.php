@@ -211,6 +211,9 @@ class ArticleController extends Controller
    * @OA\Post(
    *   path="/api/v1/articles/{article_id}/comments",
    *   tags={"articles"},
+   *   security={
+   *     {"token": {}}
+   *   },
    *   @OA\Parameter(
    *     ref="#/components/parameters/article_id",
    *   ),
