@@ -51,6 +51,15 @@ class CreateTables extends Migration
       $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
       $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
     });
+
+    Schema::create('tokens', function (Blueprint $table) {
+      $table->uuid('value')->primary();
+      $table->uuid('user_id');
+
+      $table->timestamps();
+
+      $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+    });
   }
 
   /**
@@ -58,6 +67,7 @@ class CreateTables extends Migration
    */
   public function down()
   {
+    Schema::dropIfExists('tokens');
     Schema::dropIfExists('comments');
     Schema::dropIfExists('articles');
     Schema::dropIfExists('users');
