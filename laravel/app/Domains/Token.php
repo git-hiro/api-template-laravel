@@ -2,7 +2,7 @@
 
 namespace App\Domains;
 
-class Article extends Entity
+class Token extends Entity
 {
   public $value;
   public $user_id;

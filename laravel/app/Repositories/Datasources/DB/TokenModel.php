@@ -10,6 +10,8 @@ class TokenModel extends Model
 
   protected $table = 'tokens';
 
+  protected $primaryKey = 'value';
+
   protected $fillable = [
   ];
 

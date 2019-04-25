@@ -14,9 +14,9 @@ interface ITokenRepository
 
   public function create(Token $token, string $executor_id): Token;
 
-  public function update(string $value, Token $token, string $executor_id): Token;
+  public function update(string $value): Token;
 
-  public function delete(string $value, string $executor_id): void;
+  public function delete(string $value): void;
 }
 
 class TokenRepository implements ITokenRepository
@@ -41,29 +41,27 @@ class TokenRepository implements ITokenRepository
   public function create(Token $token, string $executor_id): Token
   {
     $model = new TokenModel();
-    $model->fill($token->toArray())->forceFill([
-      'value'   => $token->id,
+    $model->forceFill([
+      'value'   => $token->value,
       'user_id' => $executor_id,
     ])->save();
 
     return TokenTranslator::ofModel($model);
   }
 
-  public function update(string $value, Token $token, string $executor_id): Token
+  public function update(string $value): Token
   {
     $model = $this->_getModel($value, [], false);
     if (!$model) {
       throw new NotFoundHttpException($value);
     }
 
-    $model->fill($token->toArray())->forceFill([
-      'updater_id' => $executor_id,
-    ])->save();
+    $model->update();
 
     return TokenTranslator::ofModel($model);
   }
 
-  public function delete(string $value, string $executor_id): void
+  public function delete(string $value): void
   {
     $model = $this->_getModel($value, [], false);
     if ($model) {
