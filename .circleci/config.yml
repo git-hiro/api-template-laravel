@@ -6,6 +6,8 @@ jobs:
 
     docker: 
       - image: circleci/php:7.3.4-fpm-stretch
+        environment:
+          APP_ENV: circleci
 
       - image: circleci/postgres:10.7-alpine
         environment:
