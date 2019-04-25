@@ -7,6 +7,7 @@ use App\Domains\Translators\CommentTranslator;
 use App\Repositories\Datasources\DB\CommentModel;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 interface ICommentRepository
 {
@@ -58,7 +59,7 @@ class CommentRepository implements ICommentRepository
   {
     $model = $this->_getModel($id, [], false);
     if (!$model) {
-      throw new InvalidArgumentException();
+      throw new NotFoundHttpException($id);
     }
 
     $model->fill($comment->toArray())->forceFill([

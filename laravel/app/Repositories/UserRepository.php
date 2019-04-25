@@ -7,6 +7,8 @@ use App\Domains\User;
 use App\Repositories\Datasources\DB\UserModel;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 interface IUserRepository
 {
@@ -56,7 +58,7 @@ class UserRepository implements IUserRepository
       if ($model->deleted_at) {
         $model->forceDelete();
       } else {
-        throw new InvalidArgumentException();
+        throw new ConflictHttpException();
       }
     }
 
@@ -78,14 +80,14 @@ class UserRepository implements IUserRepository
         if ($model->deleted_at) {
           $model->forceDelete();
         } else {
-          throw new InvalidArgumentException();
+          throw new ConflictHttpException();
         }
       }
     }
 
     $model = $this->_getModel($id, [], false);
     if (!$model) {
-      throw new InvalidArgumentException();
+      throw new NotFoundHttpException();
     }
 
     $model->fill($user->toArray())->forceFill([
