@@ -13,12 +13,6 @@ use App\UseCases\Comments\UpdateCommentCase;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
 
-/**
- * @OA\Tag(
- *   name="comments",
- *   description="",
- * )
- */
 class CommentController extends Controller
 {
   /**
@@ -63,6 +57,9 @@ class CommentController extends Controller
    * @OA\Put(
    *   path="/api/v1/comments/{comment_id}",
    *   tags={"comments"},
+   *   security={
+   *     {"token": {}}
+   *   },
    *   @OA\Parameter(
    *     ref="#/components/parameters/comment_id",
    *   ),
@@ -98,6 +95,9 @@ class CommentController extends Controller
    * @OA\Delete(
    *   path="/api/v1/comments/{comment_id}",
    *   tags={"comments"},
+   *   security={
+   *     {"token": {}}
+   *   },
    *   @OA\Parameter(
    *     ref="#/components/parameters/comment_id",
    *   ),

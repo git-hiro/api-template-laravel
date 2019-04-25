@@ -16,12 +16,6 @@ use App\UseCases\Users\UpdateUserCase;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
 
-/**
- * @OA\Tag(
- *   name="users",
- *   description="",
- * )
- */
 class UserController extends Controller
 {
   /**
@@ -89,6 +83,9 @@ class UserController extends Controller
    * @OA\Post(
    *   path="/api/v1/users",
    *   tags={"users"},
+   *   security={
+   *     {"token": {}}
+   *   },
    *   @OA\RequestBody(description="",
    *     @OA\JsonContent(
    *       ref="#/components/schemas/CreateUserRequest",
@@ -121,6 +118,9 @@ class UserController extends Controller
    * @OA\Put(
    *   path="/api/v1/users/{user_id}",
    *   tags={"users"},
+   *   security={
+   *     {"token": {}}
+   *   },
    *   @OA\Parameter(
    *     ref="#/components/parameters/user_id",
    *   ),
@@ -156,6 +156,9 @@ class UserController extends Controller
    * @OA\Delete(
    *   path="/api/v1/users/{user_id}",
    *   tags={"users"},
+   *   security={
+   *     {"token": {}}
+   *   },
    *   @OA\Parameter(
    *     ref="#/components/parameters/user_id",
    *   ),

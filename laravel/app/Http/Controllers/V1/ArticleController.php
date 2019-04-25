@@ -19,12 +19,6 @@ use App\UseCases\Articles\UpdateArticleCase;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
 
-/**
- * @OA\Tag(
- *   name="articles",
- *   description="",
- * )
- */
 class ArticleController extends Controller
 {
   /**
@@ -92,6 +86,9 @@ class ArticleController extends Controller
    * @OA\Post(
    *   path="/api/v1/articles",
    *   tags={"articles"},
+   *   security={
+   *     {"token": {}}
+   *   },
    *   @OA\RequestBody(description="",
    *     @OA\JsonContent(
    *       ref="#/components/schemas/CreateArticleRequest",
@@ -124,6 +121,9 @@ class ArticleController extends Controller
    * @OA\Put(
    *   path="/api/v1/articles/{article_id}",
    *   tags={"articles"},
+   *   security={
+   *     {"token": {}}
+   *   },
    *   @OA\Parameter(
    *     ref="#/components/parameters/article_id",
    *   ),
@@ -159,6 +159,9 @@ class ArticleController extends Controller
    * @OA\Delete(
    *   path="/api/v1/articles/{article_id}",
    *   tags={"articles"},
+   *   security={
+   *     {"token": {}}
+   *   },
    *   @OA\Parameter(
    *     ref="#/components/parameters/article_id",
    *   ),
