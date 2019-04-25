@@ -66,6 +66,8 @@ class Handler extends ExceptionHandler
       ], Response::HTTP_UNAUTHORIZED);
     }
 
+    \Log::notice($exception);
+
     return response('', Response::HTTP_INTERNAL_SERVER_ERROR);
   }
 }
