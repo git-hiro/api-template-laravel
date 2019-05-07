@@ -1,0 +1,16 @@
+extend type Mutation @group(namespace: "App\\Http\\GraphQL") {
+    create_token(email: String!, password: String!): CreateToken! @field(resolver: "TokenGQL@createTokenResolver")
+    delete_token: DeleteToken! @field(resolver: "TokenGQL@deleteTokenResolver")
+}
+
+type Token {
+    value: String!
+}
+
+type CreateToken {
+    token: Token
+}
+
+type DeleteToken {
+    ok: Boolean!
+}

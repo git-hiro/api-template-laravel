@@ -5,6 +5,7 @@ scalar UUID @scalar(class: "App\\Http\\GraphQL\\Types\\UUID")
 type Query
 type Mutation
 
+#import ./token.graphql
 #import ./user.graphql
 #import ./article.graphql
 #import ./comment.graphql

@@ -3,7 +3,7 @@ extend type Query @group(namespace: "App\\Http\\GraphQL") {
     user(id: UUID!): User! @field(resolver: "UserGQL@userResolver")
 }
 
-extend type Mutation @group(namespace: "App\\Http\\GraphQL") {
+extend type Mutation @group(namespace: "App\\Http\\GraphQL") @middleware(checks: ["auth"]) {
     create_user(user: CreateUserInput!): CreateUser! @field(resolver: "UserGQL@createUserResolver")
     update_user(id: UUID!, user: UpdateUserInput!): UpdateUser! @field(resolver: "UserGQL@updateUserResolver")
     delete_user(id: UUID!): DeleteUser! @field(resolver: "UserGQL@deleteUserResolver")

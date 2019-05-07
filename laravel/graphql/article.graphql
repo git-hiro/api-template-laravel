@@ -3,11 +3,13 @@ extend type Query @group(namespace: "App\\Http\\GraphQL") {
     article(id: UUID): Article! @field(resolver: "ArticleGQL@articleResolver")
 }
 
-extend type Mutation @group(namespace: "App\\Http\\GraphQL") {
+extend type Mutation @group(namespace: "App\\Http\\GraphQL") @middleware(checks: ["auth"]) {
     create_article(article: CreateArticleInput!): CreateArticle! @field(resolver: "ArticleGQL@createArticleResolver")
     update_article(id: UUID!, article: UpdateArticleInput!): UpdateArticle! @field(resolver: "ArticleGQL@updateArticleResolver")
     delete_article(id: UUID!): DeleteArticle! @field(resolver: "ArticleGQL@deleteArticleResolver")
+}
 
+extend type Mutation @group(namespace: "App\\Http\\GraphQL") {
     create_article_comment(article_id: UUID!, comment: CreateArticleCommentInput!): CreateArticleComment! @field(resolver: "ArticleGQL@createArticleCommentResolver")
 }
 
