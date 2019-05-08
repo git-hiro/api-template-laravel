@@ -35,9 +35,10 @@ class DeleteUserTest extends GraphQLTestCase
     $this->user_repository_mock->shouldReceive('delete');
 
     $query = $this->loadGql('/User/graphql/DeleteUser.gql');
-    $response = $this->graphql($query, [
-      'id' => $id,
-    ]);
+    $response = $this->acting()
+      ->graphql($query, [
+        'id' => $id,
+      ]);
 
     $response
       ->assertStatus(200)

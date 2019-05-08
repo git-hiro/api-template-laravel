@@ -2,6 +2,7 @@
 
 namespace Tests\GraphQLUnit;
 
+use App\Domains\User;
 use Illuminate\Database\Connection;
 use Illuminate\Database\DatabaseManager;
 use Mockery\MockInterface;
@@ -64,5 +65,12 @@ abstract class GraphQLTestCase extends TestCase
     });
 
     return $spy;
+  }
+
+  protected function acting()
+  {
+    return $this->actingAs(new User([
+      'id' => '90d16911-4e22-4dd2-8d8e-bc5bfb2bddd6',
+    ]));
   }
 }

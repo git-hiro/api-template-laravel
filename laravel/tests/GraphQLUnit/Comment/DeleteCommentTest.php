@@ -35,9 +35,10 @@ class DeleteCommentTest extends GraphQLTestCase
     $this->comment_repository_mock->shouldReceive('delete');
 
     $query = $this->loadGql('/Comment/graphql/DeleteComment.gql');
-    $response = $this->graphql($query, [
-      'id' => $id,
-    ]);
+    $response = $this->acting()
+      ->graphql($query, [
+        'id' => $id,
+      ]);
 
     $response
       ->assertStatus(200)

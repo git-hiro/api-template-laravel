@@ -43,13 +43,14 @@ class CreateUserTest extends GraphQLTestCase
       );
 
     $query = $this->loadGql('/User/graphql/CreateUser.gql');
-    $response = $this->graphql($query, [
-      'user' => [
-        'name'     => 'test_name',
-        'email'    => 'test_email@test.localhost',
-        'password' => 'test_password',
-      ],
-    ]);
+    $response = $this->acting()
+      ->graphql($query, [
+        'user' => [
+          'name'     => 'test_name',
+          'email'    => 'test_email@test.localhost',
+          'password' => 'test_password',
+        ],
+      ]);
 
     $response
       ->assertStatus(200)

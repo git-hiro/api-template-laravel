@@ -43,14 +43,15 @@ class UpdateUserTest extends GraphQLTestCase
       );
 
     $query = $this->loadGql('/User/graphql/UpdateUser.gql');
-    $response = $this->graphql($query, [
-      'id'   => $id,
-      'user' => [
-        'name'     => 'test_name',
-        'email'    => 'test_email@test.localhost',
-        'password' => 'test_password',
-      ],
-    ]);
+    $response = $this->acting()
+      ->graphql($query, [
+        'id'   => $id,
+        'user' => [
+          'name'     => 'test_name',
+          'email'    => 'test_email@test.localhost',
+          'password' => 'test_password',
+        ],
+      ]);
 
     $response
       ->assertStatus(200)

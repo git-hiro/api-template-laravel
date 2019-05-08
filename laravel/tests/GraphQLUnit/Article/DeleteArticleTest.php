@@ -35,9 +35,10 @@ class DeleteArticleTest extends GraphQLTestCase
     $this->article_repository_mock->shouldReceive('delete');
 
     $query = $this->loadGql('/Article/graphql/DeleteArticle.gql');
-    $response = $this->graphql($query, [
-      'id' => $id,
-    ]);
+    $response = $this->acting()
+      ->graphql($query, [
+        'id' => $id,
+      ]);
 
     $response
       ->assertStatus(200)

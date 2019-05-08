@@ -44,12 +44,13 @@ class CreateArticleTest extends GraphQLTestCase
       );
 
     $query = $this->loadGql('/Article/graphql/CreateArticle.gql');
-    $response = $this->graphql($query, [
-      'article' => [
-        'subject' => 'test_subject',
-        'content' => 'test_content',
-      ],
-    ]);
+    $response = $this->acting()
+      ->graphql($query, [
+        'article' => [
+          'subject' => 'test_subject',
+          'content' => 'test_content',
+        ],
+      ]);
 
     $response
       ->assertStatus(200)

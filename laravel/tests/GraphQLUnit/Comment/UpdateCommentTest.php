@@ -46,12 +46,13 @@ class UpdateCommentTest extends GraphQLTestCase
       );
 
     $query = $this->loadGql('/Comment/graphql/UpdateComment.gql');
-    $response = $this->graphql($query, [
-      'id'      => $id,
-      'comment' => [
-        'content' => 'test_content',
-      ],
-    ]);
+    $response = $this->acting()
+      ->graphql($query, [
+        'id'      => $id,
+        'comment' => [
+          'content' => 'test_content',
+        ],
+      ]);
 
     $response
       ->assertStatus(200)

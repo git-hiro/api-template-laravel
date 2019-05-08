@@ -44,13 +44,14 @@ class UpdateArticleTest extends GraphQLTestCase
       );
 
     $query = $this->loadGql('/Article/graphql/UpdateArticle.gql');
-    $response = $this->graphql($query, [
-      'id'      => $id,
-      'article' => [
-        'subject' => 'test_subject',
-        'content' => 'test_content',
-      ],
-    ]);
+    $response = $this->acting()
+      ->graphql($query, [
+        'id'      => $id,
+        'article' => [
+          'subject' => 'test_subject',
+          'content' => 'test_content',
+        ],
+      ]);
 
     $response
       ->assertStatus(200)
