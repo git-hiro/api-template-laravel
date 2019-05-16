@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Enums\AppExceptionType;
 use Exception;
 use Nuwave\Lighthouse\Exceptions\RendersErrorsExtensions;
 use Symfony\Component\HttpFoundation\Response;
@@ -9,15 +10,15 @@ use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 class AppException extends Exception implements RendersErrorsExtensions, HttpExceptionInterface
 {
-  protected $status_code;
+  protected $type;
 
   public function __construct(
-    int $status_code,
-    string $message
+    AppExceptionType $type,
+    array $attributes = [],
+    string $locale = null
   ) {
-    parent::__construct($message);
-
-    $this->status_code = $status_code;
+    parent::__construct(__($type->message_key, $attributes, $locale));
+    $this->type = $type;
   }
 
   //region RendersErrorsExtensions
@@ -29,13 +30,13 @@ class AppException extends Exception implements RendersErrorsExtensions, HttpExc
 
   public function getCategory(): string
   {
-    return Response::$statusTexts[$this->status_code];
+    return Response::$statusTexts[$this->getStatusCode()];
   }
 
   public function extensionsContent(): array
   {
     return [
-      'status_code' => $this->status_code,
+      'status_code' => $this->getStatusCode(),
     ];
   }
 
@@ -45,7 +46,7 @@ class AppException extends Exception implements RendersErrorsExtensions, HttpExc
 
   public function getStatusCode(): int
   {
-    return $this->status_code;
+    return $this->type->status_code;
   }
 
   public function getHeaders(): array
