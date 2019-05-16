@@ -4,11 +4,11 @@ namespace App\Repositories;
 
 use App\Domains\Translators\UserTranslator;
 use App\Domains\User;
+use App\Enums\AppExceptionType;
+use App\Exceptions\AppException;
 use App\Repositories\Datasources\DB\UserModel;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
-use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 interface IUserRepository
 {
@@ -58,7 +58,7 @@ class UserRepository implements IUserRepository
       if ($model->deleted_at) {
         $model->forceDelete();
       } else {
-        throw new ConflictHttpException();
+        throw new AppException(AppExceptionType::CONFLIT(), ['attr' => $user->email]);
       }
     }
 
@@ -80,14 +80,14 @@ class UserRepository implements IUserRepository
         if ($model->deleted_at) {
           $model->forceDelete();
         } else {
-          throw new ConflictHttpException();
+          throw new AppException(AppExceptionType::CONFLIT(), ['attr' => $user->email]);
         }
       }
     }
 
     $model = $this->_getModel($id, [], false);
     if (!$model) {
-      throw new NotFoundHttpException();
+      throw new AppException(AppExceptionType::NOT_FOUND(), ['attr' => $id]);
     }
 
     $model->fill($user->toArray())->forceFill([

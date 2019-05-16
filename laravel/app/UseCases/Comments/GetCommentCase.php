@@ -3,9 +3,10 @@
 namespace App\UseCases\Comments;
 
 use App\Domains\Comment;
+use App\Enums\AppExceptionType;
+use App\Exceptions\AppException;
 use App\Repositories\Datasources\MultipleConnection;
 use App\Repositories\ICommentRepository;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class GetCommentCase
 {
@@ -32,7 +33,7 @@ class GetCommentCase
     return $this->connection->transaction(['pgsql'], function () use ($id, $relations) {
       $comment = $this->comment_repository->getItem($id, $relations);
       if (!$comment) {
-        throw new NotFoundHttpException($id);
+        throw new AppException(AppExceptionType::NOT_FOUND(), ['attr' => $value]);
       }
 
       return $comment;

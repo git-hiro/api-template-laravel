@@ -3,9 +3,10 @@
 namespace App\UseCases\Users;
 
 use App\Domains\User;
+use App\Enums\AppExceptionType;
+use App\Exceptions\AppException;
 use App\Repositories\Datasources\MultipleConnection;
 use App\Repositories\IUserRepository;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class GetUserCase
 {
@@ -32,7 +33,7 @@ class GetUserCase
     return $this->connection->transaction(['pgsql'], function () use ($id, $relations) {
       $user = $this->user_repository->getItem($id, $relations);
       if (!$user) {
-        throw new NotFoundHttpException($id);
+        throw new AppException(AppExceptionType::NOT_FOUND(), ['attr' => $value]);
       }
 
       return $user;

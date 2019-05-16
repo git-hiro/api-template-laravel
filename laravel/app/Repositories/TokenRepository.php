@@ -4,8 +4,9 @@ namespace App\Repositories;
 
 use App\Domains\Token;
 use App\Domains\Translators\TokenTranslator;
+use App\Enums\AppExceptionType;
+use App\Exceptions\AppException;
 use App\Repositories\Datasources\DB\TokenModel;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 interface ITokenRepository
 {
@@ -42,7 +43,7 @@ class TokenRepository implements ITokenRepository
   {
     $model = $this->_getModel($value, []);
     if (!$model) {
-      throw new NotFoundHttpException($value);
+      throw new AppException(AppExceptionType::NOT_FOUND(), ['attr' => $value]);
     }
 
     $model->update();

@@ -4,10 +4,11 @@ namespace App\UseCases\Tokens;
 
 use App\Domains\Token;
 use App\Domains\Translators\TokenTranslator;
+use App\Enums\AppExceptionType;
+use App\Exceptions\AppException;
 use App\Repositories\Datasources\MultipleConnection;
 use App\Repositories\ITokenRepository;
 use App\Repositories\IUserRepository;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class CreateTokenCase
 {
@@ -42,7 +43,7 @@ class CreateTokenCase
       // find user
       $user = $this->user_repository->getItemByUnique($email);
       if (!$user) {
-        throw new UnauthorizedHttpException('Bearer');
+        throw new AppException(AppExceptionType::UNAUTHORIZED());
       }
 
       // create token

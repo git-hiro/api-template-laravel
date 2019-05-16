@@ -4,10 +4,11 @@ namespace App\Repositories;
 
 use App\Domains\Article;
 use App\Domains\Translators\ArticleTranslator;
+use App\Enums\AppExceptionType;
+use App\Exceptions\AppException;
 use App\Repositories\Datasources\DB\ArticleModel;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 interface IArticleRepository
 {
@@ -58,7 +59,7 @@ class ArticleRepository implements IArticleRepository
   {
     $model = $this->_getModel($id, [], false);
     if (!$model) {
-      throw new NotFoundHttpException($id);
+      throw new AppException(AppExceptionType::NOT_FOUND(), ['attr' => $id]);
     }
 
     $model->fill($article->toArray())->forceFill([

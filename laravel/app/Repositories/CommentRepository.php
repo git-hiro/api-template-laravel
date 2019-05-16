@@ -4,10 +4,11 @@ namespace App\Repositories;
 
 use App\Domains\Comment;
 use App\Domains\Translators\CommentTranslator;
+use App\Enums\AppExceptionType;
+use App\Exceptions\AppException;
 use App\Repositories\Datasources\DB\CommentModel;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 interface ICommentRepository
 {
@@ -59,7 +60,7 @@ class CommentRepository implements ICommentRepository
   {
     $model = $this->_getModel($id, [], false);
     if (!$model) {
-      throw new NotFoundHttpException($id);
+      throw new AppException(AppExceptionType::NOT_FOUND(), ['attr' => $id]);
     }
 
     $model->fill($comment->toArray())->forceFill([
